@@ -34,7 +34,7 @@
             this.lblDram = new System.Windows.Forms.Label();
             this.btnDrain = new System.Windows.Forms.Button();
             this.nudForce = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblForce = new System.Windows.Forms.Label();
             this.lblDrain = new System.Windows.Forms.Label();
             this.lblDrainValue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudDram)).BeginInit();
@@ -75,6 +75,7 @@
             this.lblDram.Name = "lblDram";
             this.lblDram.Size = new System.Drawing.Size(32, 13);
             this.lblDram.TabIndex = 132;
+            this.lblDram.Tag = "Label_AlchemicalComponents";
             this.lblDram.Text = "Dram";
             this.lblDram.Click += new System.EventHandler(this.lblDram_Click);
             // 
@@ -94,37 +95,52 @@
             // nudForce
             // 
             this.nudForce.Location = new System.Drawing.Point(219, 1);
+            this.nudForce.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudForce.Name = "nudForce";
             this.nudForce.Size = new System.Drawing.Size(34, 20);
             this.nudForce.TabIndex = 134;
+            this.nudForce.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudForce.ValueChanged += new System.EventHandler(this.nudForce_ValueChanged);
             // 
-            // label1
+            // lblForce
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 135;
-            this.label1.Text = "Force";
+            this.lblForce.AutoSize = true;
+            this.lblForce.Location = new System.Drawing.Point(181, 3);
+            this.lblForce.Name = "lblForce";
+            this.lblForce.Size = new System.Drawing.Size(40, 13);
+            this.lblForce.TabIndex = 135;
+            this.lblForce.Tag = "Label_SpellForce";
+            this.lblForce.Text = "[Force]";
             // 
             // lblDrain
             // 
             this.lblDrain.AutoSize = true;
-            this.lblDrain.Location = new System.Drawing.Point(407, 3);
+            this.lblDrain.Location = new System.Drawing.Point(421, 3);
             this.lblDrain.Name = "lblDrain";
-            this.lblDrain.Size = new System.Drawing.Size(38, 13);
+            this.lblDrain.Size = new System.Drawing.Size(32, 13);
             this.lblDrain.TabIndex = 136;
-            this.lblDrain.Text = "[Drain]";
+            this.lblDrain.Tag = "";
+            this.lblDrain.Text = "K+10";
+            this.lblDrain.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDrainValue
             // 
             this.lblDrainValue.AutoSize = true;
             this.lblDrainValue.Location = new System.Drawing.Point(363, 3);
             this.lblDrainValue.Name = "lblDrainValue";
-            this.lblDrainValue.Size = new System.Drawing.Size(38, 13);
+            this.lblDrainValue.Size = new System.Drawing.Size(58, 13);
             this.lblDrainValue.TabIndex = 137;
-            this.lblDrainValue.Text = "[Drain]";
+            this.lblDrainValue.Tag = "Label_DrainValue";
+            this.lblDrainValue.Text = "Entzug: 10";
+            this.lblDrainValue.Click += new System.EventHandler(this.lblDrainValue_Click);
             // 
             // SmallSpellControl
             // 
@@ -132,7 +148,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblDrainValue);
             this.Controls.Add(this.lblDrain);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblForce);
             this.Controls.Add(this.nudForce);
             this.Controls.Add(this.btnDrain);
             this.Controls.Add(this.lblDram);
@@ -140,7 +156,7 @@
             this.Controls.Add(this.txtSpellName);
             this.Controls.Add(this.cmdRollSpell);
             this.Name = "SmallSpellControl";
-            this.Size = new System.Drawing.Size(445, 21);
+            this.Size = new System.Drawing.Size(453, 21);
             ((System.ComponentModel.ISupportInitialize)(this.nudDram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudForce)).EndInit();
             this.ResumeLayout(false);
@@ -155,7 +171,7 @@
         private System.Windows.Forms.Label lblDram;
         private System.Windows.Forms.Button btnDrain;
         private System.Windows.Forms.NumericUpDown nudForce;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblForce;
         private System.Windows.Forms.Label lblDrain;
         private System.Windows.Forms.Label lblDrainValue;
     }

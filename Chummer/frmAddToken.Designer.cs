@@ -98,9 +98,10 @@
             this.lbld6.AutoSize = true;
             this.lbld6.Location = new System.Drawing.Point(159, 44);
             this.lbld6.Name = "lbld6";
-            this.lbld6.Size = new System.Drawing.Size(19, 13);
+            this.lbld6.Size = new System.Drawing.Size(27, 13);
             this.lbld6.TabIndex = 6;
-            this.lbld6.Text = "d6";
+            this.lbld6.Tag = "label_D6";
+            this.lbld6.Text = "{d6}";
             // 
             // btnCancel
             // 
@@ -128,7 +129,7 @@
             // chkAutoRollInit
             // 
             this.chkAutoRollInit.AutoSize = true;
-            this.chkAutoRollInit.Location = new System.Drawing.Point(184, 42);
+            this.chkAutoRollInit.Location = new System.Drawing.Point(192, 43);
             this.chkAutoRollInit.Name = "chkAutoRollInit";
             this.chkAutoRollInit.Size = new System.Drawing.Size(88, 17);
             this.chkAutoRollInit.TabIndex = 3;

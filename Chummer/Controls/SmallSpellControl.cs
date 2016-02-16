@@ -39,7 +39,10 @@ namespace Chummer.Controls
             {
                 _objSpell = value;
                 txtSpellName.Text = $"{_objSpell.DisplayNameShort}: {_objSpell.DicePool}";
-                lblDrain.Text = _objSpell.DV;
+                lblDrain.Tag = null;
+                lblDrain.Text = _objSpell.DisplayDV;
+                lblDrainValue.Tag = null;
+                lblDrainValue.Text = LanguageManager.Instance.GetString("Label_DrainValue").Replace(":#", $": {Spell.GetDrainValue((int)nudForce.Value)}");
             }
         }
 
@@ -85,7 +88,12 @@ namespace Chummer.Controls
 
         private void nudForce_ValueChanged(object sender, EventArgs e)
         {
-            this.lblDrainValue.Text = $"Drain: {Spell.GetDrainValue((int) nudForce.Value)}";
+            this.lblDrainValue.Text = LanguageManager.Instance.GetString("Label_DrainValue").Replace(":#",$": {Spell.GetDrainValue((int) nudForce.Value)}");
+        }
+
+        private void lblDrainValue_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

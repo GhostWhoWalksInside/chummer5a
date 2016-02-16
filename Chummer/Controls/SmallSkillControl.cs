@@ -11,7 +11,7 @@ namespace Chummer
 {
     public partial class SmallSkillControl : UserControl
     {
-        private Skill _objSkill;
+        private ISkill _objSkill;
         private readonly Form _objParent;
         
         /// <summary>
@@ -19,20 +19,20 @@ namespace Chummer
         /// </summary>
         public event EventHandler DiceClick
         {
-            add { this.cmdRoll.Click += value; }
-            remove { this.cmdRoll.Click -= value; }
+            add { cmdRoll.Click += value; }
+            remove { cmdRoll.Click -= value; }
         }
 
         /// <summary>
         /// The skill information
         /// </summary>
-        public Skill Skill 
+        public ISkill Skill 
         {
-            get { return this._objSkill; }
+            get { return _objSkill; }
             set
             {
-                this._objSkill = value;
-                this.lblSkillName.Text = this.Skill.DisplayName + " : " + this.Skill.TotalRating.ToString();
+                _objSkill = value;
+                lblSkillName.Text = Skill.DisplayName + " : " + Skill.TotalRating.ToString();
             }
         }
 
@@ -46,11 +46,11 @@ namespace Chummer
             {
                 chkUseSpecial.Visible = value;
                 if (chkUseSpecial.Visible)
-                    this.Width = chkUseSpecial.Left + chkUseSpecial.Width;
+                    Width = chkUseSpecial.Left + chkUseSpecial.Width;
                 else if (cmdRoll.Visible)
-                    this.Width = cmdRoll.Left + cmdRoll.Width;
+                    Width = cmdRoll.Left + cmdRoll.Width;
                 else
-                    this.Width = lblSkillName.Left + lblSkillName.Width;
+                    Width = lblSkillName.Left + lblSkillName.Width;
             }
         }
 
@@ -64,17 +64,17 @@ namespace Chummer
             {
                 cmdRoll.Visible = value;
                 if (chkUseSpecial.Visible)
-                    this.Width = chkUseSpecial.Left + chkUseSpecial.Width;
+                    Width = chkUseSpecial.Left + chkUseSpecial.Width;
                 else if (cmdRoll.Visible)
-                    this.Width = cmdRoll.Left + cmdRoll.Width;
+                    Width = cmdRoll.Left + cmdRoll.Width;
                 else
-                    this.Width = lblSkillName.Left + lblSkillName.Width;
+                    Width = lblSkillName.Left + lblSkillName.Width;
             }
         }
 
         public SmallSkillControl(Form parent)
         {
-            this._objParent = parent;
+            _objParent = parent;
             InitializeComponent();
             // setup controls
         }
@@ -82,10 +82,10 @@ namespace Chummer
         private void cmdRoll_Click(object sender, EventArgs e)
         {
             // pass the appropriate information onto the dice roller
-            if (this._objParent is frmGMDashboard)
+            if (_objParent is frmGMDashboard)
             {
-                frmGMDashboard dash = this._objParent as frmGMDashboard;
-                dash.DiceRoller.NumberOfDice = this.chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
+                frmGMDashboard dash = _objParent as frmGMDashboard;
+                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
                 // apply appropriate limit here
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
                 dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((Attribute)dash.CurrentNPC.EDG).TotalValue);
@@ -93,8 +93,8 @@ namespace Chummer
             else
             {
                 // we have the individual player's skill's
-                frmPlayerDashboard dash = this._objParent as frmPlayerDashboard;
-                dash.DiceRoller.NumberOfDice = this.chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
+                frmPlayerDashboard dash = _objParent as frmPlayerDashboard;
+                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
                 dash.DiceRoller.NumberOfEdge = Convert.ToInt32(dash.CurrentNPC.EDG);
             }

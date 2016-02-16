@@ -92,14 +92,15 @@
             // initativeToolStripMenuItem
             // 
             this.initativeToolStripMenuItem.Name = "initativeToolStripMenuItem";
-            this.initativeToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.initativeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.initativeToolStripMenuItem.Tag = "Label_Initiative";
             this.initativeToolStripMenuItem.Text = "{Initiative}";
             this.initativeToolStripMenuItem.Click += new System.EventHandler(this.initativeToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Tag = "Label_Open";
             this.openToolStripMenuItem.Text = "{Open}";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
@@ -107,7 +108,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Tag = "Label_Exit";
             this.exitToolStripMenuItem.Text = "{Exit}";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
@@ -124,7 +125,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Tag = "Label_About";
             this.aboutToolStripMenuItem.Text = "{About}";
             // 

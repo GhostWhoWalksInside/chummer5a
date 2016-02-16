@@ -7846,5 +7846,34 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Label_Condition</key>
 			<text>Condition:</text>
 		</string>
+    <!--Region Dashboard -->
+    <string>
+      <key>Label_Initiative</key>
+      <text>Initiativetracker</text>
+    </string>
+    <!--End Region-->
+    <!--Region Condition Monitor-->
+    <!--End Region-->
+    <!--Region Small Spell Control-->
+    
+    <string>
+      <key>Label_SpellForce</key>
+      <text>Force</text>
+    </string>
+    <string>
+      <key>Label_AlchemicalComponents</key>
+      <text>Dram</text>
+    </string>
+    <string>
+      <key>Label_DrainValue</key>
+      <text>Drain:#</text>
+    </string>
+    <string>
+      <key>Label_Drain</key>
+      <text>Drain</text>
+    </string>
+    <!--End Region-->
+    <!--Region Small Skill Controll-->
+    <!--Region Initiative Control-->
 	</strings>
 </chummer>

@@ -2282,7 +2282,7 @@ namespace Chummer
 	/// Object that represents a single Skill.
 	/// </summary>
 	[DebuggerDisplay("{_strName}")]
-	public class Skill
+	public class Skill : ISkill
 	{
 		private string _strSkillGroup = "";
 		private string _strSkillCategory = "";

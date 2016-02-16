@@ -87,6 +87,7 @@
             this.chkUseSpecial.Name = "chkUseSpecial";
             this.chkUseSpecial.Size = new System.Drawing.Size(83, 17);
             this.chkUseSpecial.TabIndex = 13;
+            this.chkUseSpecial.Tag = "Checkbox_SmallSkillControl_UseSpecial";
             this.chkUseSpecial.Text = "Use Special";
             this.chkUseSpecial.UseVisualStyleBackColor = true;
             // 

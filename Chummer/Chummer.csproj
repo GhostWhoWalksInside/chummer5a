@@ -128,6 +128,7 @@
     <Compile Include="Classes\clsUtils.cs" />
     <Compile Include="Classes\clsXmlExtensions.cs" />
     <Compile Include="Classes\clsXmlManager.cs" />
+    <Compile Include="Classes\ISkill.cs" />
     <Compile Include="Controls\ConditionMonitorUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

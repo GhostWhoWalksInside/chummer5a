@@ -243,7 +243,7 @@ namespace Chummer
 
             this.tabControl.TabPages[(int) DashBoardPages.Skills].Controls.Clear();
             FlowLayoutPanel panel = new FlowLayoutPanel();
-            foreach (Skill skill in this.CurrentNPC.Skills.Where(s => s.Rating > 0))
+            foreach (ISkill skill in this.CurrentNPC.Skills.Where(s => s.Rating > 0))
             {
                 if (skill.KnowledgeSkill)
                     continue; // improvement for knowledge skills goes here
@@ -273,6 +273,7 @@ namespace Chummer
             {
                 //get a new spellcontroll
                 var ucSpell = GetSmallSpellControl(spell);
+                LanguageManager.Instance.Load(GlobalOptions.Instance.Language,ucSpell);
                 // add the skill to the collection of skills to show
                 spellPanel.Controls.Add(ucSpell);
             }
@@ -282,6 +283,7 @@ namespace Chummer
             this.tabControl.TabPages[(int)DashBoardPages.Spells].Controls.Add(spellPanel);
 
             #endregion
+            LanguageManager.Instance.Load(GlobalOptions.Instance.Language,this);
         }
         /// <summary>
         /// Creates a new SmallSpellControl and returns it. 

@@ -128,7 +128,16 @@ namespace Chummer
         #region Event Handling
         private void cmdRollDice_Click(object sender, EventArgs e)
         {
-            // TODO roll the dice
+            //catch the funboys
+            if (NumberOfDice <= 0)
+            {
+                txtResults.Text =
+                    ("You just moved your virtual hands in a very dicerolling way, but nothing happend..." +
+                     Environment.NewLine + "Please roll at least one dice");
+                lblResults.Text = "Outtime Glitch!!";
+                return;
+            }
+            // get serious
             List<int> results = new List<int>();
             for (int i = 0; i < this.NumberOfDice; i++)
             {

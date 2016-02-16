@@ -7399,5 +7399,22 @@
       <key>Tip_Skill_AddSpecialization</key>
       <text>Spezialisierung für {0} Karma hinzufügen</text>
     </string>
+
+    <string>
+      <key>Label_SpellForce</key>
+      <text>Kraft</text>
+    </string>
+    <string>
+      <key>Label_AlchemicalComponents</key>
+      <text>Dram</text>
+    </string>
+    <string>
+      <key>Label_DrainValue</key>
+      <text>Entzug:#</text>
+    </string>
+    <string>
+      <key>Label_Drain</key>
+      <text>Entzug</text>
+    </string>
   </strings>
 </chummer>
