@@ -116,6 +116,14 @@
 			<key>Button_Reset</key>
 			<text>Reset</text>
 		</string>
+    <string>
+      <key>Button_ResetTurn</key>
+      <text>Reset Turn</text>
+    </string>
+    <string>
+      <key>Button_ResetBattle</key>
+      <text>Reset Battle</text>
+    </string>
 		<string>
 			<key>Button_ApplyManeuver</key>
 			<text>Apply Maneuver</text>
@@ -126,8 +134,12 @@
 		</string>
 		<string>
 			<key>Label_Round</key>
-			<text>Round</text>
+			<text>Round #</text>
 		</string>
+    <string>
+      <key>Label_Turn</key>
+      <text>Turn #</text>
+    </string>
 		<string>
 			<key>Label_Vehicles</key>
 			<text>Vehicles</text>
@@ -7855,7 +7867,6 @@ Only one attribute may be at its Maximum value during character creation.</text>
     <!--Region Condition Monitor-->
     <!--End Region-->
     <!--Region Small Spell Control-->
-    
     <string>
       <key>Label_SpellForce</key>
       <text>Force</text>
@@ -7874,6 +7885,34 @@ Only one attribute may be at its Maximum value during character creation.</text>
     </string>
     <!--End Region-->
     <!--Region Small Skill Controll-->
-    <!--Region Initiative Control-->
+    <!--Region InitiativeUser Control-->
+    <string>
+      <key>chk_FastMode</key>
+      <text>Fastmode</text>
+    </string>
+    <string>
+      <key>chk_Reroll</key>
+      <text>No Reroll</text>
+    </string>
+    <string>
+      <key>Label_BattleModifier</key>
+      <text>Battle Initiative Modifier</text>
+    </string>
+    <string>
+      <key>Label_RoundModifier</key>
+      <text>Turn Initiative Modifier</text>
+    </string>
+    <string>
+      <key>Label_MinusD6</key>
+      <text>-1D6</text>
+    </string>
+    <string>
+      <key>Label_PlusD6</key>
+      <text>+1D6</text>
+    </string>
+    <string>
+      <key>Button_Clear</key>
+      <text>Clear</text>
+    </string>
 	</strings>
 </chummer>

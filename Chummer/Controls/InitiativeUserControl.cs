@@ -37,11 +37,15 @@ namespace Chummer
         public InitiativeUserControl()
         {
             InitializeComponent();
+            if (DesignerUtil.InDesignMode())
+            {
+                return;
+            }
             _characters = new List<Tuple<Character, bool>>();
             round = 1;
             turn = 0;
-            lblRound.Text = lblRound.Text.Split(' ')[0] + $" {round}";
-            lblTurn.Text = lblTurn.Text.Split(' ')[0] + $" {turn}";
+            lblRound.Text = LanguageManager.Instance.GetString("Label_Round").Replace("#", $"{round}");
+            lblTurn.Text = LanguageManager.Instance.GetString("Label_Turn").Replace("#", $"{turn}");
             chkFastMode.Checked = fastmode;
             chkStaticMode.Checked = staticBattleMode;
 
@@ -49,7 +53,6 @@ namespace Chummer
 
             // setup the list of chummers to show 
             chkBoxChummer.DisplayMember = "DisplayInit";
-
         }
 
         #region Events
@@ -245,7 +248,7 @@ namespace Chummer
         private void NextRound()
         {
             // increment the round count since we have reached the end of the list
-            lblRound.Text = "Round " + (round++ + 1);
+            lblRound.Text = LanguageManager.Instance.GetString("Label_Round").Replace("#",$"{round++}");
             // reset the the round with a minus ten on all
             int _index = -1;
             for (int i = 0; i < _characters.Count; i++)
@@ -365,7 +368,7 @@ namespace Chummer
             finishedCombatTurn = false;
             index = 0;
             round = 1;
-            lblRound.Text = "Round 1";
+            lblRound.Text = LanguageManager.Instance.GetString("Label_Round").Replace("#", $"{round++}"); ;
             totalChummersWithNoInit = 0;
             if (chkBoxChummer.Items.Count > 0)
             {
@@ -440,7 +443,7 @@ namespace Chummer
         private void IncreaseTurn()
         {
             turn++;
-            lblTurn.Text = $"Turn:{turn}";
+            lblTurn.Text = LanguageManager.Instance.GetString("Label_Turn").Replace("#", $"{turn}"); 
         }
 
 

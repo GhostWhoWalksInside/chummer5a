@@ -370,6 +370,10 @@ namespace Chummer
 					}
 				}
 			}
+		    foreach (var result in objParent.Controls.OfType<UserControl>())
+		    {
+		        UpdateControls(result);
+		    }
 		}
 
 		/// <summary>

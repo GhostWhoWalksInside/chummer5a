@@ -252,6 +252,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="UI\Shared\CharacterShared.cs" />
+    <Compile Include="UI\Shared\DesignerUtil.cs" />
     <Compile Include="Utilities\frmDiceHits.cs">
       <SubType>Form</SubType>
     </Compile>

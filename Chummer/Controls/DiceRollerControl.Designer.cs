@@ -74,7 +74,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(428, 188);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(461, 188);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // txtResults
@@ -82,7 +82,7 @@
             this.txtResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtResults.Location = new System.Drawing.Point(3, 83);
             this.txtResults.Name = "txtResults";
-            this.txtResults.Size = new System.Drawing.Size(422, 102);
+            this.txtResults.Size = new System.Drawing.Size(455, 102);
             this.txtResults.TabIndex = 3;
             this.txtResults.Text = "";
             // 
@@ -106,7 +106,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(428, 25);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(461, 25);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // nudLimit
@@ -149,7 +149,7 @@
             // nudGremlins
             // 
             this.nudGremlins.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nudGremlins.Location = new System.Drawing.Point(386, 3);
+            this.nudGremlins.Location = new System.Drawing.Point(419, 3);
             this.nudGremlins.Maximum = new decimal(new int[] {
             4,
             0,
@@ -164,7 +164,7 @@
             // 
             this.lblGremlins.AutoSize = true;
             this.lblGremlins.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblGremlins.Location = new System.Drawing.Point(311, 0);
+            this.lblGremlins.Location = new System.Drawing.Point(344, 0);
             this.lblGremlins.Name = "lblGremlins";
             this.lblGremlins.Size = new System.Drawing.Size(69, 25);
             this.lblGremlins.TabIndex = 48;
@@ -190,7 +190,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(428, 30);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(461, 30);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
             // cboEdgeUse
@@ -218,7 +218,7 @@
             // nudThreshold
             // 
             this.nudThreshold.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nudThreshold.Location = new System.Drawing.Point(386, 3);
+            this.nudThreshold.Location = new System.Drawing.Point(419, 3);
             this.nudThreshold.Name = "nudThreshold";
             this.nudThreshold.Size = new System.Drawing.Size(39, 20);
             this.nudThreshold.TabIndex = 49;
@@ -228,7 +228,7 @@
             // 
             this.lblThreshold.AutoSize = true;
             this.lblThreshold.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblThreshold.Location = new System.Drawing.Point(311, 0);
+            this.lblThreshold.Location = new System.Drawing.Point(344, 0);
             this.lblThreshold.Name = "lblThreshold";
             this.lblThreshold.Size = new System.Drawing.Size(69, 30);
             this.lblThreshold.TabIndex = 47;
@@ -239,10 +239,10 @@
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 5;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel4.Controls.Add(this.cmdRollDice, 4, 0);
             this.tableLayoutPanel4.Controls.Add(this.chkRushJob, 3, 0);
@@ -255,14 +255,14 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(428, 25);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(461, 25);
             this.tableLayoutPanel4.TabIndex = 7;
             // 
             // cmdRollDice
             // 
             this.cmdRollDice.AutoSize = true;
             this.cmdRollDice.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cmdRollDice.Location = new System.Drawing.Point(363, 0);
+            this.cmdRollDice.Location = new System.Drawing.Point(396, 0);
             this.cmdRollDice.Margin = new System.Windows.Forms.Padding(0);
             this.cmdRollDice.Name = "cmdRollDice";
             this.cmdRollDice.Size = new System.Drawing.Size(65, 25);
@@ -276,9 +276,9 @@
             // 
             this.chkRushJob.AutoSize = true;
             this.chkRushJob.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkRushJob.Location = new System.Drawing.Point(124, 3);
+            this.chkRushJob.Location = new System.Drawing.Point(172, 3);
             this.chkRushJob.Name = "chkRushJob";
-            this.chkRushJob.Size = new System.Drawing.Size(223, 19);
+            this.chkRushJob.Size = new System.Drawing.Size(202, 19);
             this.chkRushJob.TabIndex = 55;
             this.chkRushJob.Tag = "Checkbox_DiceRoller_RushedJob";
             this.chkRushJob.Text = "Rushed Job (Glitch on 1 or 2)";
@@ -288,7 +288,7 @@
             // 
             this.lblD6.AutoSize = true;
             this.lblD6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblD6.Location = new System.Drawing.Point(86, 0);
+            this.lblD6.Location = new System.Drawing.Point(131, 0);
             this.lblD6.Name = "lblD6";
             this.lblD6.Size = new System.Drawing.Size(21, 25);
             this.lblD6.TabIndex = 54;
@@ -298,7 +298,7 @@
             // nudDice
             // 
             this.nudDice.Dock = System.Windows.Forms.DockStyle.Left;
-            this.nudDice.Location = new System.Drawing.Point(41, 3);
+            this.nudDice.Location = new System.Drawing.Point(86, 3);
             this.nudDice.Maximum = new decimal(new int[] {
             0,
             0,
@@ -315,7 +315,7 @@
             this.lblRoll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRoll.Location = new System.Drawing.Point(3, 0);
             this.lblRoll.Name = "lblRoll";
-            this.lblRoll.Size = new System.Drawing.Size(32, 25);
+            this.lblRoll.Size = new System.Drawing.Size(77, 25);
             this.lblRoll.TabIndex = 48;
             this.lblRoll.Tag = "String_DiceRoller_Roll";
             this.lblRoll.Text = "Roll";
@@ -327,7 +327,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "DiceRollerControl";
-            this.Size = new System.Drawing.Size(428, 188);
+            this.Size = new System.Drawing.Size(461, 188);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

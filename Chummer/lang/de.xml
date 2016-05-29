@@ -7416,5 +7416,62 @@
       <key>Label_Drain</key>
       <text>Entzug</text>
     </string>
+    <!--Region InitiativeUser Control-->
+    <string>
+      <key>chk_FastMode</key>
+      <text>TurboModus</text>
+    </string>
+    <string>
+      <key>chk_Reroll</key>
+      <text>Initiative behalten</text>
+    </string>
+    <string>
+      <key>Label_BattleModifier</key>
+      <text>Kampfinitiativmodifikator</text>
+    </string>
+    <string>
+      <key>Label_RoundModifier</key>
+      <text>Rundeninitiativmodifikator</text>
+    </string>
+    <string>
+      <key>Label_MinusD6</key>
+      <text>-1W6</text>
+    </string>
+    <string>
+      <key>Label_PlusD6</key>
+      <text>+1W6</text>
+    </string>
+    <string>
+      <key>Button_Clear</key>
+      <text>Liste leeren</text>
+    </string>
+    <string>
+      <key>Button_Delay</key>
+      <text>Verzögern</text>
+    </string>
+    <string>
+      <key>Button_Next</key>
+      <text>Nächster</text>
+    </string>
+    <string>
+      <key>Button_Sort</key>
+      <text>Sortieren</text>
+    </string>
+    <string>
+      <key>Label_Round</key>
+      <text>Durchgang #</text>
+    </string>
+    <string>
+      <key>Label_Turn</key>
+      <text>Kampfrunde #</text>
+    </string>
+    <string>
+      <key>Button_Add</key>
+      <text>Hinzufügen</text>
+    </string>
+    <string>
+      <key>Button_Remove</key>
+      <text>Entfernen</text>
+    </string>
   </strings>
 </chummer>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,13 @@ namespace Chummer
         public frmInitiative()
         {
             InitializeComponent();
-            this.CenterToParent();
+            CenterToParent();
+            if (DesignerUtil.InDesignMode())
+            {
+                return;
+            }
+            LanguageManager.Instance.Load(GlobalOptions.Instance.Language, this);
         }
     }
 }
+
