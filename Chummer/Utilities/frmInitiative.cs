@@ -16,14 +16,7 @@
  *  You can obtain the full source code for Chummer5a at
  *  https://github.com/chummer5a/chummer5a
  */
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+
 using System.Windows.Forms;
 
 namespace Chummer
@@ -34,10 +27,8 @@ namespace Chummer
         /// <summary>
         /// The initiative controler for this form
         /// </summary>
-        public InitiativeUserControl InitUC
-        {
-            get { return this.ucInit; }
-        }
+        public InitiativeUserControl InitUC => ucInit;
+
         #endregion
 
         public frmInitiative()

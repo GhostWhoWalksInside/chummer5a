@@ -16,9 +16,8 @@
  *  You can obtain the full source code for Chummer5a at
  *  https://github.com/chummer5a/chummer5a
  */
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+ using System.Reflection;
+ using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -26,12 +25,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Chummer")]
 [assembly: AssemblyDescription("Character generator for Shadowrun 5th Edition")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Chummer for 4th edition by Keith Rudolph.\n\r" +
+[assembly: AssemblyCompany("Original Chummer for 4th edition by Keith Rudolph.\n\r" +
                            "Chummer5 update by Adam Schmidt: srchummer5@gmail.com\n\r" +
                            "Chummer5a update by Anonymous fa/tg/uy: chummer5isalive@gmail.com\n\r" +
-                           "Additional 5a updates by Johannes Elgaard: joha4270@gmail.com\n\r" +
-                           "Data files for Run Faster & Data Tails by reddit/u/Iridios")]
-[assembly: AssemblyProduct("Chummer")]
+                           "Additional 5a updates by Johannes Elgaard: joha4270@gmail.com")]
+[assembly: AssemblyProduct("Chummer5a")]
 [assembly: AssemblyCopyright("Copyright © Keith Rudolph 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -50,5 +48,5 @@ using System.Runtime.InteropServices;
 //      Minor Version 
 //      Build Number
 //      Revision
-[assembly: AssemblyVersion("5.181.0")]
-[assembly: AssemblyFileVersion("5.181.0")]
+[assembly: AssemblyVersion("5.198.0")]
+[assembly: AssemblyFileVersion("5.198.0")]

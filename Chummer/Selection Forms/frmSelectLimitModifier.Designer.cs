@@ -1,6 +1,6 @@
-﻿namespace Chummer
+namespace Chummer
 {
-    partial class frmSelectLimitModifier
+    public sealed partial class frmSelectLimitModifier
     {
         /// <summary>
         /// Required designer variable.
@@ -148,6 +148,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Tag = "String_EnterLimitModifier";
             this.Text = "Enter a Limit Modifier";
+            this.Load += new System.EventHandler(this.frmSelectLimitModifier_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudBonus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

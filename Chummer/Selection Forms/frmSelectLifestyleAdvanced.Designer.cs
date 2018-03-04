@@ -1,37 +1,38 @@
-﻿namespace Chummer
+namespace Chummer
 {
-	partial class frmSelectLifestyleAdvanced
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class frmSelectLifestyleAdvanced
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                components?.Dispose();
+                tipTooltip?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Positive Qualities");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Negative Qualities");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Entertainments");
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Positive Qualities");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Negative Qualities");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Entertainments");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Free Matrix Grids");
             this.Label_SelectAdvancedLifestyle_Upgrade_Comforts = new System.Windows.Forms.Label();
             this.cmdOKAdd = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
@@ -48,7 +49,7 @@
             this.lblSourceLabel = new System.Windows.Forms.Label();
             this.nudRoommates = new System.Windows.Forms.NumericUpDown();
             this.lblRoommates = new System.Windows.Forms.Label();
-            this.tipTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.tipTooltip = new TheArtOfDev.HtmlRenderer.WinForms.HtmlToolTip();
             this.cboBaseLifestyle = new System.Windows.Forms.ComboBox();
             this.Label_SelectAdvancedLifestyle_Base_Lifestyle = new System.Windows.Forms.Label();
             this.nudSecurity = new System.Windows.Forms.NumericUpDown();
@@ -65,6 +66,12 @@
             this.lblQualityBPLabel = new System.Windows.Forms.Label();
             this.lblQualitySource = new System.Windows.Forms.Label();
             this.lblQualitySourceLabel = new System.Windows.Forms.Label();
+            this.lblQualityCost = new System.Windows.Forms.Label();
+            this.lblQualityCostLabel = new System.Windows.Forms.Label();
+            this.chkPrimaryTenant = new System.Windows.Forms.CheckBox();
+            this.lblSecurityTotal = new System.Windows.Forms.Label();
+            this.lblAreaTotal = new System.Windows.Forms.Label();
+            this.lblComfortTotal = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRoommates)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudSecurity)).BeginInit();
@@ -121,15 +128,15 @@
             this.lblTotalLPLabel.AutoSize = true;
             this.lblTotalLPLabel.Location = new System.Drawing.Point(256, 226);
             this.lblTotalLPLabel.Name = "lblTotalLPLabel";
-            this.lblTotalLPLabel.Size = new System.Drawing.Size(50, 13);
+            this.lblTotalLPLabel.Size = new System.Drawing.Size(63, 13);
             this.lblTotalLPLabel.TabIndex = 12;
-            this.lblTotalLPLabel.Tag = "Label_SelectAdvancedLifestyle_TotalLP";
-            this.lblTotalLPLabel.Text = "Total LP:";
+            this.lblTotalLPLabel.Tag = "Label_SelectAdvancedLifestyle_UnusedLP";
+            this.lblTotalLPLabel.Text = "Unused LP:";
             // 
             // lblTotalLP
             // 
             this.lblTotalLP.AutoSize = true;
-            this.lblTotalLP.Location = new System.Drawing.Point(321, 226);
+            this.lblTotalLP.Location = new System.Drawing.Point(334, 226);
             this.lblTotalLP.Name = "lblTotalLP";
             this.lblTotalLP.Size = new System.Drawing.Size(26, 13);
             this.lblTotalLP.TabIndex = 13;
@@ -173,14 +180,15 @@
             // 
             // nudPercentage
             // 
+            this.nudPercentage.DecimalPlaces = 2;
             this.nudPercentage.Location = new System.Drawing.Point(337, 270);
             this.nudPercentage.Maximum = new decimal(new int[] {
-            900,
+            99999,
             0,
             0,
-            0});
+            131072});
             this.nudPercentage.Name = "nudPercentage";
-            this.nudPercentage.Size = new System.Drawing.Size(45, 20);
+            this.nudPercentage.Size = new System.Drawing.Size(67, 20);
             this.nudPercentage.TabIndex = 17;
             this.nudPercentage.Value = new decimal(new int[] {
             100,
@@ -207,7 +215,7 @@
             this.lblSource.Size = new System.Drawing.Size(47, 13);
             this.lblSource.TabIndex = 21;
             this.lblSource.Text = "[Source]";
-            this.lblSource.Click += new System.EventHandler(this.lblSource_Click);
+            this.lblSource.Click += new System.EventHandler(CommonFunctions.OpenPDFFromControl);
             // 
             // lblSourceLabel
             // 
@@ -222,13 +230,8 @@
             // nudRoommates
             // 
             this.nudRoommates.Location = new System.Drawing.Point(337, 247);
-            this.nudRoommates.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.nudRoommates.Name = "nudRoommates";
-            this.nudRoommates.Size = new System.Drawing.Size(45, 20);
+            this.nudRoommates.Size = new System.Drawing.Size(67, 20);
             this.nudRoommates.TabIndex = 15;
             this.nudRoommates.ValueChanged += new System.EventHandler(this.nudRoommates_ValueChanged);
             // 
@@ -244,10 +247,15 @@
             // 
             // tipTooltip
             // 
+            this.tipTooltip.AllowLinksHandling = true;
             this.tipTooltip.AutoPopDelay = 10000;
+            this.tipTooltip.BaseStylesheet = null;
             this.tipTooltip.InitialDelay = 250;
             this.tipTooltip.IsBalloon = true;
+            this.tipTooltip.MaximumSize = new System.Drawing.Size(0, 0);
+            this.tipTooltip.OwnerDraw = true;
             this.tipTooltip.ReshowDelay = 100;
+            this.tipTooltip.TooltipCssClass = "htmltooltip";
             this.tipTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.tipTooltip.ToolTipTitle = "Chummer Help";
             // 
@@ -281,7 +289,7 @@
             0,
             0});
             this.nudSecurity.Name = "nudSecurity";
-            this.nudSecurity.Size = new System.Drawing.Size(69, 20);
+            this.nudSecurity.Size = new System.Drawing.Size(48, 20);
             this.nudSecurity.TabIndex = 41;
             this.nudSecurity.ValueChanged += new System.EventHandler(this.nudSecurity_ValueChanged);
             // 
@@ -294,7 +302,7 @@
             0,
             0});
             this.nudArea.Name = "nudArea";
-            this.nudArea.Size = new System.Drawing.Size(69, 20);
+            this.nudArea.Size = new System.Drawing.Size(48, 20);
             this.nudArea.TabIndex = 40;
             this.nudArea.ValueChanged += new System.EventHandler(this.nudArea_ValueChanged);
             // 
@@ -307,7 +315,7 @@
             0,
             0});
             this.nudComforts.Name = "nudComforts";
-            this.nudComforts.Size = new System.Drawing.Size(69, 20);
+            this.nudComforts.Size = new System.Drawing.Size(48, 20);
             this.nudComforts.TabIndex = 39;
             this.nudComforts.ValueChanged += new System.EventHandler(this.nudComforts_ValueChanged);
             // 
@@ -368,16 +376,22 @@
             // 
             this.treLifestyleQualities.Location = new System.Drawing.Point(1, 36);
             this.treLifestyleQualities.Name = "treLifestyleQualities";
-            treeNode7.Name = "nodPositiveLifestyleQualities";
-            treeNode7.Text = "Positive Qualities";
-            treeNode8.Name = "nodNegativeLifestyleQualities";
-            treeNode8.Text = "Negative Qualities";
-            treeNode9.Name = "nodLifestyleEntertainments";
-            treeNode9.Text = "Entertainments";
+            treeNode5.Name = "nodPositiveLifestyleQualities";
+            treeNode5.Tag = "Label_SummaryPositiveQualities";
+            treeNode5.Text = "Positive Qualities";
+            treeNode6.Name = "nodNegativeLifestyleQualities";
+            treeNode6.Tag = "Label_SummaryNegativeQualities";
+            treeNode6.Text = "Negative Qualities";
+            treeNode7.Name = "nodLifestyleEntertainments";
+            treeNode7.Tag = "Node_SelectAdvancedLifestyle_Entertainments";
+            treeNode7.Text = "Entertainments";
+            treeNode8.Name = "nodFreeMatrixGrids";
+            treeNode8.Text = "Free Matrix Grids";
             this.treLifestyleQualities.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode5,
+            treeNode6,
             treeNode7,
-            treeNode8,
-            treeNode9});
+            treeNode8});
             this.treLifestyleQualities.Size = new System.Drawing.Size(249, 286);
             this.treLifestyleQualities.TabIndex = 53;
             this.treLifestyleQualities.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treLifestyleQualities_AfterSelect);
@@ -419,23 +433,89 @@
             // 
             this.lblQualitySource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblQualitySource.AutoSize = true;
-            this.lblQualitySource.Location = new System.Drawing.Point(185, 325);
+            this.lblQualitySource.Location = new System.Drawing.Point(204, 325);
             this.lblQualitySource.Name = "lblQualitySource";
             this.lblQualitySource.Size = new System.Drawing.Size(47, 13);
             this.lblQualitySource.TabIndex = 69;
             this.lblQualitySource.Text = "[Source]";
-            this.lblQualitySource.Click += new System.EventHandler(this.lblQualitySource_Click);
+            this.lblQualitySource.Click += new System.EventHandler(CommonFunctions.OpenPDFFromControl);
             // 
             // lblQualitySourceLabel
             // 
             this.lblQualitySourceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblQualitySourceLabel.AutoSize = true;
-            this.lblQualitySourceLabel.Location = new System.Drawing.Point(135, 325);
+            this.lblQualitySourceLabel.Location = new System.Drawing.Point(154, 325);
             this.lblQualitySourceLabel.Name = "lblQualitySourceLabel";
             this.lblQualitySourceLabel.Size = new System.Drawing.Size(44, 13);
             this.lblQualitySourceLabel.TabIndex = 68;
             this.lblQualitySourceLabel.Tag = "Label_Source";
             this.lblQualitySourceLabel.Text = "Source:";
+            // 
+            // lblQualityCost
+            // 
+            this.lblQualityCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblQualityCost.AutoSize = true;
+            this.lblQualityCost.Location = new System.Drawing.Point(111, 325);
+            this.lblQualityCost.Name = "lblQualityCost";
+            this.lblQualityCost.Size = new System.Drawing.Size(34, 13);
+            this.lblQualityCost.TabIndex = 73;
+            this.lblQualityCost.Text = "[Cost]";
+            // 
+            // lblQualityCostLabel
+            // 
+            this.lblQualityCostLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblQualityCostLabel.AutoSize = true;
+            this.lblQualityCostLabel.Location = new System.Drawing.Point(79, 325);
+            this.lblQualityCostLabel.Name = "lblQualityCostLabel";
+            this.lblQualityCostLabel.Size = new System.Drawing.Size(31, 13);
+            this.lblQualityCostLabel.TabIndex = 72;
+            this.lblQualityCostLabel.Tag = "Label_Cost";
+            this.lblQualityCostLabel.Text = "Cost:";
+            // 
+            // chkPrimaryTenant
+            // 
+            this.chkPrimaryTenant.AutoSize = true;
+            this.chkPrimaryTenant.Location = new System.Drawing.Point(423, 248);
+            this.chkPrimaryTenant.Name = "chkPrimaryTenant";
+            this.chkPrimaryTenant.Size = new System.Drawing.Size(97, 17);
+            this.chkPrimaryTenant.TabIndex = 74;
+            this.chkPrimaryTenant.Text = "Primary Tenant";
+            this.chkPrimaryTenant.Tag = "Label_SelectAdvancedLifestyle_Tenant";
+            this.chkPrimaryTenant.UseVisualStyleBackColor = true;
+            this.chkPrimaryTenant.CheckedChanged += new System.EventHandler(this.chkPrimaryTenant_CheckedChanged);
+            // 
+            // lblSecurityTotal
+            // 
+            this.lblSecurityTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSecurityTotal.Location = new System.Drawing.Point(431, 175);
+            this.lblSecurityTotal.Name = "lblSecurityTotal";
+            this.lblSecurityTotal.Size = new System.Drawing.Size(31, 13);
+            this.lblSecurityTotal.TabIndex = 77;
+            this.lblSecurityTotal.Tag = "";
+            this.lblSecurityTotal.Text = "[0]";
+            this.lblSecurityTotal.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblAreaTotal
+            // 
+            this.lblAreaTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblAreaTotal.Location = new System.Drawing.Point(431, 149);
+            this.lblAreaTotal.Name = "lblAreaTotal";
+            this.lblAreaTotal.Size = new System.Drawing.Size(31, 13);
+            this.lblAreaTotal.TabIndex = 76;
+            this.lblAreaTotal.Tag = "";
+            this.lblAreaTotal.Text = "[0]";
+            this.lblAreaTotal.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblComfortTotal
+            // 
+            this.lblComfortTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblComfortTotal.Location = new System.Drawing.Point(431, 124);
+            this.lblComfortTotal.Name = "lblComfortTotal";
+            this.lblComfortTotal.Size = new System.Drawing.Size(31, 13);
+            this.lblComfortTotal.TabIndex = 75;
+            this.lblComfortTotal.Tag = "";
+            this.lblComfortTotal.Text = "[0]";
+            this.lblComfortTotal.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // frmSelectLifestyleAdvanced
             // 
@@ -444,6 +524,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
             this.ClientSize = new System.Drawing.Size(572, 342);
+            this.Controls.Add(this.lblSecurityTotal);
+            this.Controls.Add(this.lblAreaTotal);
+            this.Controls.Add(this.lblComfortTotal);
+            this.Controls.Add(this.chkPrimaryTenant);
+            this.Controls.Add(this.lblQualityCost);
+            this.Controls.Add(this.lblQualityCostLabel);
             this.Controls.Add(this.lblQualityLp);
             this.Controls.Add(this.lblQualityBPLabel);
             this.Controls.Add(this.lblQualitySource);
@@ -493,7 +579,7 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
         private void nudSecurity_ValueChanged(object sender, System.EventArgs e)
         {
@@ -525,25 +611,25 @@
             CalculateValues();
         }
 
-		#endregion
+        #endregion
 
         private System.Windows.Forms.Label Label_SelectAdvancedLifestyle_Upgrade_Comforts;
-		private System.Windows.Forms.Button cmdOKAdd;
-		private System.Windows.Forms.Button cmdCancel;
+        private System.Windows.Forms.Button cmdOKAdd;
+        private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOK;
-		private System.Windows.Forms.Label lblTotalLPLabel;
-		private System.Windows.Forms.Label lblTotalLP;
-		private System.Windows.Forms.Label lblCostLabel;
-		private System.Windows.Forms.Label lblCost;
-		private System.Windows.Forms.Label lblLifestyleNameLabel;
-		private System.Windows.Forms.TextBox txtLifestyleName;
-		private System.Windows.Forms.NumericUpDown nudPercentage;
-		private System.Windows.Forms.Label lblPercentage;
-		private System.Windows.Forms.Label lblSource;
-		private System.Windows.Forms.Label lblSourceLabel;
-		private System.Windows.Forms.NumericUpDown nudRoommates;
-		private System.Windows.Forms.Label lblRoommates;
-        private System.Windows.Forms.ToolTip tipTooltip;
+        private System.Windows.Forms.Label lblTotalLPLabel;
+        private System.Windows.Forms.Label lblTotalLP;
+        private System.Windows.Forms.Label lblCostLabel;
+        private System.Windows.Forms.Label lblCost;
+        private System.Windows.Forms.Label lblLifestyleNameLabel;
+        private System.Windows.Forms.TextBox txtLifestyleName;
+        private System.Windows.Forms.NumericUpDown nudPercentage;
+        private System.Windows.Forms.Label lblPercentage;
+        private System.Windows.Forms.Label lblSource;
+        private System.Windows.Forms.Label lblSourceLabel;
+        private System.Windows.Forms.NumericUpDown nudRoommates;
+        private System.Windows.Forms.Label lblRoommates;
+        private TheArtOfDev.HtmlRenderer.WinForms.HtmlToolTip tipTooltip;
         private System.Windows.Forms.ComboBox cboBaseLifestyle;
         private System.Windows.Forms.Label Label_SelectAdvancedLifestyle_Base_Lifestyle;
         private System.Windows.Forms.NumericUpDown nudSecurity;
@@ -555,10 +641,16 @@
         private System.Windows.Forms.Button cmdAddQuality;
         private System.Windows.Forms.Button cmdDeleteQuality;
         private System.Windows.Forms.TreeView treLifestyleQualities;
-		private System.Windows.Forms.CheckBox chkTrustFund;
+        private System.Windows.Forms.CheckBox chkTrustFund;
         private System.Windows.Forms.Label lblQualityLp;
         private System.Windows.Forms.Label lblQualityBPLabel;
         private System.Windows.Forms.Label lblQualitySource;
         private System.Windows.Forms.Label lblQualitySourceLabel;
+        private System.Windows.Forms.Label lblQualityCost;
+        private System.Windows.Forms.Label lblQualityCostLabel;
+        private System.Windows.Forms.CheckBox chkPrimaryTenant;
+        private System.Windows.Forms.Label lblSecurityTotal;
+        private System.Windows.Forms.Label lblAreaTotal;
+        private System.Windows.Forms.Label lblComfortTotal;
     }
 }

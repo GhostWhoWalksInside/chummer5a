@@ -16,65 +16,59 @@
  *  You can obtain the full source code for Chummer5a at
  *  https://github.com/chummer5a/chummer5a
  */
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+ using System;
+ using System.Windows.Forms;
 
 namespace Chummer
 {
-    public partial class frmSelectLimitModifier : Form
+    public sealed partial class frmSelectLimitModifier : Form
     {
-        private string _strReturnName = "";
+        private string _strReturnName = string.Empty;
         private int _intBonus = 1;
-        private string _strCondition = "";
+        private string _strCondition = string.Empty;
 
         #region Control Events
-        public frmSelectLimitModifier()
+        public frmSelectLimitModifier(LimitModifier objLimitModifier = null)
         {
             InitializeComponent();
-            LanguageManager.Instance.Load(GlobalOptions.Instance.Language, this);
+            LanguageManager.TranslateWinForm(GlobalOptions.Language, this);
+            if (objLimitModifier != null)
+            {
+                txtName.Text = objLimitModifier.Name;
+                _intBonus = objLimitModifier.Bonus;
+                txtCondition.Text = objLimitModifier.Condition;
+            }
         }
 
-		private void cmdOK_Click(object sender, EventArgs e)
+        private void cmdOK_Click(object sender, EventArgs e)
         {
             _strReturnName = txtName.Text;
-            _intBonus = Convert.ToInt32(nudBonus.Value);
+            _intBonus = decimal.ToInt32(nudBonus.Value);
             _strCondition = txtCondition.Text;
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void cmdCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
-		private void frmSelectText_Shown(object sender, EventArgs e)
-		{
-			// If the field is pre-populated, immediately click OK.
-			if (txtName.Text != "")
-				cmdOK_Click(sender, e);
-		}		
-		#endregion
-
-		#region Properties
-		/// <summary>
-		/// Modifier name that was entered in the dialogue.
-		/// </summary>
-		public string SelectedName
+        private void frmSelectLimitModifier_Load(object sender, EventArgs e)
         {
-            get
-            {
-                return _strReturnName;
-            }
-			set
-			{
-				txtName.Text = value;
-			}
+            // If the field is pre-populated, immediately click OK.
+            if (!string.IsNullOrEmpty(txtName.Text))
+                cmdOK_Click(sender, e);
+        }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Modifier name that was entered in the dialogue.
+        /// </summary>
+        public string SelectedName
+        {
+            get => _strReturnName;
+            set => txtName.Text = value;
         }
 
         /// <summary>
@@ -82,14 +76,8 @@ namespace Chummer
         /// </summary>
         public string SelectedCondition
         {
-            get
-            {
-                return _strCondition;
-            }
-            set
-            {
-                txtCondition.Text = value;
-            }
+            get => _strCondition;
+            set => txtCondition.Text = value;
         }
 
         /// <summary>
@@ -97,17 +85,10 @@ namespace Chummer
         /// </summary>
         public int SelectedBonus
         {
-            get
-            {
-                return _intBonus;
-            }
-            set
-            {
-                nudBonus.Value = value;
-            }
+            get => _intBonus;
+            set => nudBonus.Value = value;
         }
 
         #endregion
-
     }
 }

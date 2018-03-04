@@ -1,17 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+
 // ReSharper disable InconsistentNaming
 
 namespace CrashHandler
 {
-	static class DbgHlp
+	[StructLayout(LayoutKind.Sequential, Pack = 4)]  // Pack=4 is important! So it works also for x64!
+	public struct MiniDumpExceptionInformation
+	{
+		internal uint ThreadId;
+		internal IntPtr ExceptionPointers;
+		[MarshalAs(UnmanagedType.Bool)]
+        internal bool ClientPointers;
+	}
+    
+    internal static class NativeMethods
 	{
 		[DllImport("Dbghelp.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
-		public static extern bool MiniDumpWriteDump
+		internal static extern bool MiniDumpWriteDump
+		(
+			IntPtr hProcess,
+			short ProcessId,
+			IntPtr hFile,
+			MINIDUMP_TYPE DumpType,
+			ref MiniDumpExceptionInformation ExceptionParam,
+			IntPtr UserStreamParam,
+			IntPtr CallbackParam
+		);
+
+		[DllImport("Dbghelp.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        internal static extern bool MiniDumpWriteDump
 		(
 			IntPtr hProcess,
 			short ProcessId,
@@ -22,6 +40,8 @@ namespace CrashHandler
 			IntPtr CallbackParam
 		);
 
+		[DllImport("Kernel32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        internal static extern bool DebugActiveProcess(IntPtr hProcess);
 	}
 
 	[Flags]

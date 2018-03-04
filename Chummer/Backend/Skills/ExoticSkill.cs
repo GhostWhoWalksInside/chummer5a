@@ -1,90 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+using System;
 using System.Xml;
-using Chummer;
-using Chummer.Datastructures;
 
-namespace Chummer.Skills
+namespace Chummer.Backend.Skills
 { 
-	class ExoticSkill : Skill
-	{
-		private static TranslatedField<string> _specificTranslator = new TranslatedField<string>();
-		private string _specific;
-		private string _translated;
+    public sealed class ExoticSkill : Skill
+    {
+        private string _strSpecific;
+        
+        public ExoticSkill(Character character, XmlNode node) : base(character, node)
+        {
+        }
 
-		static ExoticSkill()
-		{
-			XmlNodeList exotic = 
-				 XmlManager.Instance.Load("weapons.xml").SelectNodes("/chummer/weapons/weapon");
+        public void Load(XmlNode node)
+        {
+            node.TryGetStringFieldQuickly("specific", ref _strSpecific);
+        }
 
-			var elem = exotic.OfType<XmlNode>()
-				.Select(
-					x => new Tuple<string, string>(x["name"].InnerText, x.Attributes["translate"]?.InnerText ?? x["name"].InnerText));
+        public override bool AllowDelete => !CharacterObject.Created;
 
-			_specificTranslator.AddRange(elem);
-		}
+        public override int CurrentSpCost()
+        {
+            return Math.Max(BasePoints, 0);
+        }
 
+        /// <summary>
+        /// How much karma this costs. Return value during career mode is undefined
+        /// </summary>
+        /// <returns></returns>
+        public override int CurrentKarmaCost()
+        {
+            return Math.Max(RangeCost(Base + FreeKarma, TotalBaseRating), 0);
+        }
 
-		public ExoticSkill(Character character, XmlNode node) : base(character, node)
-		{
-			
-		}
+        public override bool IsExoticSkill => true;
 
-		public void Load(XmlNode node)
-		{
-			_specific = node["specific"].InnerText;
-			_translated = node["translated"]?.InnerText;
-		}
+        /// <summary>
+        /// Called during save to allow derived classes to save additional infomation required to rebuild state
+        /// </summary>
+        /// <param name="writer"></param>
+        protected override void SaveExtendedData(XmlTextWriter writer)
+        {
+            writer.WriteElementString("specific", _strSpecific);
+        }
 
-		public override bool AllowDelete
-		{
-			get { return !CharacterObject.Created; }
-		}
+        public string Specific
+        {
+            get => _strSpecific;
+            set
+            {
+                _strSpecific = value;
+                OnPropertyChanged();
+            }
+        }
 
-		public override int CurrentSpCost()
-		{
-			return BasePoints;
-		}
+        public string DisplaySpecific(string strLanguage)
+        {
+            if (strLanguage == GlobalOptions.DefaultLanguage)
+                return Specific;
 
-		/// <summary>
-		/// How much karma this costs. Return value during career mode is undefined
-		/// </summary>
-		/// <returns></returns>
-		public override int CurrentKarmaCost()
-		{
-			return RangeCost(Base + FreeKarma(), LearnedRating);
-		}
+            return LanguageManager.TranslateExtra(Specific, strLanguage);
+        }
 
-		public override bool IsExoticSkill
-		{
-			get { return true; }
-		}
-
-		/// <summary>
-		/// Called during save to allow derived classes to save additional infomation required to rebuild state
-		/// </summary>
-		/// <param name="writer"></param>
-		protected override void SaveExtendedData(XmlTextWriter writer)
-		{
-			writer.WriteElementString("specific", _specific);
-
-			if(_translated != null) writer.WriteElementString("translated", _translated);
-		}
-
-		public string Specific {
-			get { return _specificTranslator.Read(_specific, ref _translated); }
-			set
-			{
-				_specificTranslator.Write(value, ref _specific, ref _translated);
-				OnPropertyChanged();
-			}
-		}
-
-		public override string DisplaySpecialization
-		{
-			get { return Specific; }
-		}
-	}
+        public override string DisplaySpecializationMethod(string strLanguage)
+        {
+            return DisplaySpecific(strLanguage);
+        }
+    }
 }

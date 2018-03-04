@@ -31,15 +31,17 @@ namespace Chummer
     public partial class frmAddToken : Form
     {
         // used when the user has filled out the information
-        private InitiativeUserControl parentControl;
+        private readonly InitiativeUserControl parentControl;
         private Character _character;
+        private readonly Random _objRandom = MersenneTwister.SfmtRandom.Create();
+        private int _intModuloTemp;
 
         public frmAddToken(InitiativeUserControl init)
         {
             InitializeComponent();
-            //LanguageManager.Instance.Load(GlobalOptions.Instance.Language, this);
-            this.CenterToParent();
-            this.parentControl = init;
+            //LanguageManager.Load(GlobalOptions.Language, this);
+            CenterToParent();
+            parentControl = init;
             
         }
 
@@ -48,8 +50,10 @@ namespace Chummer
         /// </summary>
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Chummer5 Files (*.chum5)|*.chum5|All Files (*.*)|*.*";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = LanguageManager.GetString("DialogFilter_Chum5", GlobalOptions.Language) + '|' + LanguageManager.GetString("DialogFilter_All", GlobalOptions.Language)
+            };
 
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 LoadCharacter(openFileDialog.FileName);
@@ -63,21 +67,23 @@ namespace Chummer
         {
             if (File.Exists(fileName) && fileName.EndsWith("chum5"))
             {
-                bool blnLoaded = false;
-                Character objCharacter = new Character();
-                objCharacter.FileName = fileName;
-                blnLoaded = objCharacter.Load();
-
-                if (!blnLoaded)
+                Cursor = Cursors.WaitCursor;
+                Character objCharacter = new Character
                 {
-                    ;   // TODO edward setup error page
+                    FileName = fileName
+                };
+                if (!objCharacter.Load())
+                {
+                    Cursor = Cursors.Default;   // TODO edward setup error page
                     return; // we obviously cannot init
                 }
 
-                this.nudInit.Value = Int32.Parse(objCharacter.InitiativePasses);
-                this.txtName.Text = objCharacter.Name;
-                this.nudInitStart.Value = Int32.Parse(objCharacter.Initiative.Split(' ')[0]);
-                this._character = objCharacter;
+                nudInit.Value = objCharacter.InitiativeDice;
+                txtName.Text = objCharacter.Name;
+                if (int.TryParse(objCharacter.Initiative.Split(' ')[0], out int intTemp))
+                    nudInitStart.Value = intTemp;
+                _character = objCharacter;
+                Cursor = Cursors.Default;
             }
         }
 
@@ -88,7 +94,7 @@ namespace Chummer
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -98,26 +104,59 @@ namespace Chummer
         /// <param name="e"></param>
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (this._character != null)
+            if (_character != null)
             {
-                this._character.InitRoll = this.chkAutoRollInit.Checked ? new Random().Next((int)this.nudInit.Value, ((int)this.nudInit.Value) * 6) + ((int)this.nudInitStart.Value) : Int32.MinValue;
-                this._character.InitialInit = (int)this.nudInitStart.Value;
-                this._character.Delayed = false;
-                this._character.InitPasses = (int)this.nudInit.Value;
-                this._character.Name = this.txtName.Text;
+                _character.InitialInit = (int)nudInitStart.Value;
+                _character.Delayed = false;
+                _character.InitPasses = (int)nudInit.Value;
+                if (chkAutoRollInit.Checked)
+                {
+                    int intInitRoll = 0;
+                    for (int j = 0; j < _character.InitPasses; j++)
+                    {
+                        do
+                        {
+                            _intModuloTemp = _objRandom.Next();
+                        }
+                        while (_intModuloTemp >= int.MaxValue - 1); // Modulo bias removal for 1d6
+                        intInitRoll += 1 + _intModuloTemp % 6;
+                    }
+                    _character.InitRoll = intInitRoll + _character.InitialInit;
+                }
+                else
+                    _character.InitRoll = int.MinValue;
+                _character.Name = txtName.Text;
             }
             else
-                this._character = new Character()
+            {
+                _character = new Character()
                 {
-                    Name = this.txtName.Text,
-                    InitPasses = (int)this.nudInit.Value,
-                    InitRoll = this.chkAutoRollInit.Checked ? new Random().Next((int)this.nudInit.Value, ((int)this.nudInit.Value) * 6) + ((int)this.nudInitStart.Value) : Int32.MinValue,
+                    Name = txtName.Text,
+                    InitPasses = (int)nudInit.Value,
+                    InitRoll = int.MinValue,
                     Delayed = false,
-                    InitialInit = (int)this.nudInitStart.Value
+                    InitialInit = (int)nudInitStart.Value
                 };
             this.parentControl.AddToken(this._character,chkAutoRollInit.Checked);
            
             this.Close();
+                if (chkAutoRollInit.Checked)
+                {
+                    int intInitRoll = 0;
+                    for (int j = 0; j < _character.InitPasses; j++)
+                    {
+                        do
+                        {
+                            _intModuloTemp = _objRandom.Next();
+                        }
+                        while (_intModuloTemp >= int.MaxValue - 1); // Modulo bias removal for 1d6
+                        intInitRoll += 1 + _intModuloTemp % 6;
+                    }
+                    _character.InitRoll = intInitRoll + _character.InitialInit;
+                }
+            }
+            this.parentControl.AddToken(this._character, chkAutoRollInit.Checked);
+            Close();
         }
     }
 }
