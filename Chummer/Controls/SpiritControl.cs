@@ -1,10 +1,30 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
+ using Chummer.Backend.Equipment;
+ using Chummer.Skills;
 
 // ServicesOwedChanged Event Handler.
 public delegate void ServicesOwedChangedHandler(Object sender);
@@ -121,13 +141,25 @@ namespace Chummer
 					return;
 				}
 			}
-
-			if (!blnUseRelative)
-				GlobalOptions.Instance.MainForm.LoadCharacter(_objSpirit.FileName, false);
+			if (Path.GetExtension(_objSpirit.FileName) == "chum5")
+			{
+				if (!blnUseRelative)
+					GlobalOptions.Instance.MainForm.LoadCharacter(_objSpirit.FileName, false);
+				else
+				{
+					string strFile = Path.GetFullPath(_objSpirit.RelativeFileName);
+					GlobalOptions.Instance.MainForm.LoadCharacter(strFile, false);
+				}
+			}
 			else
 			{
-				string strFile = Path.GetFullPath(_objSpirit.RelativeFileName);
-				GlobalOptions.Instance.MainForm.LoadCharacter(strFile, false);
+				if (!blnUseRelative)
+					System.Diagnostics.Process.Start(_objSpirit.FileName);
+				else
+				{
+					string strFile = Path.GetFullPath(_objSpirit.RelativeFileName);
+					System.Diagnostics.Process.Start(strFile);
+				}
 			}
 		}
 
@@ -447,7 +479,7 @@ namespace Chummer
 
                     lstCritters.Add(objItem);
                 }
-            }
+			}
 
 			if (_objSpirit.CharacterObject.RESEnabled)
 			{
@@ -462,6 +494,19 @@ namespace Chummer
 						lstCritters.Add(objItem);
 					}
 				}
+			}
+
+			//Add Ally Spirit to MAG-enabled traditions.
+			if (_objSpirit.CharacterObject.MAGEnabled)
+			{
+				ListItem objItem = new ListItem();
+				objItem.Value = "Ally Spirit";
+				XmlNode objXmlCritterNode = objXmlCritterDocument.SelectSingleNode("/chummer/metatypes/metatype[name = \"" + objItem.Value + "\"]");
+				if (objXmlCritterNode["translate"] != null)
+					objItem.Name = objXmlCritterNode["translate"].InnerText;
+				else
+					objItem.Name = objItem.Value;
+				lstCritters.Add(objItem);
 			}
 
 			cboSpiritName.DisplayMember = "Name";
@@ -672,97 +717,99 @@ namespace Chummer
 				objCharacter.CritterPowers.Add(objPower);
 			}
 
+			//TODO, when is this shit required, 4e holdover or need?
 			// Set the Skill Ratings for the Critter.
-			foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/skill"))
-			{
-				if (objXmlSkill.InnerText.Contains("Exotic"))
-				{
-					Skill objExotic = new Skill(objCharacter);
-					objExotic.ExoticSkill = true;
-					objExotic.Attribute = "AGI";
-					if (objXmlSkill.Attributes["spec"] != null)
-                    {
-                        SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
-                        objExotic.Specializations.Add(objSpec);
-                    }
-					if (Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0)) > 6)
-						objExotic.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-					objExotic.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-					objExotic.Name = objXmlSkill.InnerText;
-					objCharacter.Skills.Add(objExotic);
-				}
-				else
-				{
-					foreach (Skill objSkill in objCharacter.Skills)
-					{
-						if (objSkill.Name == objXmlSkill.InnerText)
-						{
-							if (objXmlSkill.Attributes["spec"] != null)
-                            {
-                                SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
-                                objSkill.Specializations.Add(objSpec);
-                            }
-							if (Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0)) > 6)
-								objSkill.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-							objSkill.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-							break;
-						}
-					}
-				}
-			}
+			//foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/skill"))
+			//{
+			//	if (objXmlSkill.InnerText.Contains("Exotic"))
+			//	{
+			//		Skill objExotic = new Skill(objCharacter);
+			//		objExotic.ExoticSkill = true;
+			//		objExotic.Attribute = "AGI";
+			//		if (objXmlSkill.Attributes["spec"] != null)
+   //                 {
+   //                     SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
+   //                     objExotic.Specializations.Add(objSpec);
+   //                 }
+			//		if (Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0)) > 6)
+			//			objExotic.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//		objExotic.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//		objExotic.Name = objXmlSkill.InnerText;
+			//		objCharacter.Skills.Add(objExotic);
+			//	}
+			//	else
+			//	{
+			//		foreach (Skill objSkill in objCharacter.Skills)
+			//		{
+			//			if (objSkill.Name == objXmlSkill.InnerText)
+			//			{
+			//				if (objXmlSkill.Attributes["spec"] != null)
+   //                         {
+   //                             SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
+   //                             objSkill.Specializations.Add(objSpec);
+   //                         }
+			//				if (Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0)) > 6)
+			//					objSkill.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//				objSkill.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//				break;
+			//			}
+			//		}
+			//	}
+			//}
 
 			// Set the Skill Group Ratings for the Critter.
-			foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/group"))
-			{
-				foreach (SkillGroup objSkill in objCharacter.SkillGroups)
-				{
-					if (objSkill.Name == objXmlSkill.InnerText)
-					{
-						objSkill.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-						objSkill.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
-						break;
-					}
-				}
-			}
+			//foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/group"))
+			//{
+			//	foreach (SkillGroup objSkill in objCharacter.SkillGroups)
+			//	{
+			//		if (objSkill.Name == objXmlSkill.InnerText)
+			//		{
+			//			objSkill.RatingMaximum = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//			objSkill.Rating = Convert.ToInt32(ExpressionToString(objXmlSkill.Attributes["rating"].InnerText, Convert.ToInt32(nudForce.Value), 0));
+			//			break;
+			//		}
+			//	}
+			//}
 
-			// Set the Knowledge Skill Ratings for the Critter.
-			foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/knowledge"))
-			{
-				Skill objKnowledge = new Skill(objCharacter);
-				objKnowledge.Name = objXmlSkill.InnerText;
-				objKnowledge.KnowledgeSkill = true;
-				if (objXmlSkill.Attributes["spec"] != null)
-                {
-                    SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
-                    objKnowledge.Specializations.Add(objSpec);
-                }
-				objKnowledge.SkillCategory = objXmlSkill.Attributes["category"].InnerText;
-				if (Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText) > 6)
-					objKnowledge.RatingMaximum = Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText);
-				objKnowledge.Rating = Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText);
-				objCharacter.Skills.Add(objKnowledge);
-			}
+			//TODO: WHEN IS THIS NEEDED, 4e holdover?
+			//// Set the Knowledge Skill Ratings for the Critter.
+			//foreach (XmlNode objXmlSkill in objXmlCritter.SelectNodes("skills/knowledge"))
+			//{
+			//	Skill objKnowledge = new Skill(objCharacter);
+			//	objKnowledge.Name = objXmlSkill.InnerText;
+			//	objKnowledge.KnowledgeSkill = true;
+			//	if (objXmlSkill.Attributes["spec"] != null)
+   //             {
+   //                 SkillSpecialization objSpec = new SkillSpecialization(objXmlSkill.Attributes["spec"].InnerText);
+   //                 objKnowledge.Specializations.Add(objSpec);
+   //             }
+			//	objKnowledge.SkillCategory = objXmlSkill.Attributes["category"].InnerText;
+			//	if (Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText) > 6)
+			//		objKnowledge.RatingMaximum = Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText);
+			//	objKnowledge.Rating = Convert.ToInt32(objXmlSkill.Attributes["rating"].InnerText);
+			//	objCharacter.Skills.Add(objKnowledge);
+			//}
 
-			// If this is a Critter with a Force (which dictates their Skill Rating/Maximum Skill Rating), set their Skill Rating Maximums.
-			if (intForce > 0)
-			{
-				int intMaxRating = intForce;
-				// Determine the highest Skill Rating the Critter has.
-				foreach (Skill objSkill in objCharacter.Skills)
-				{
-					if (objSkill.RatingMaximum > intMaxRating)
-						intMaxRating = objSkill.RatingMaximum;
-				}
+			//// If this is a Critter with a Force (which dictates their Skill Rating/Maximum Skill Rating), set their Skill Rating Maximums.
+			//if (intForce > 0)
+			//{
+			//	int intMaxRating = intForce;
+			//	// Determine the highest Skill Rating the Critter has.
+			//	foreach (Skill objSkill in objCharacter.Skills)
+			//	{
+			//		if (objSkill.RatingMaximum > intMaxRating)
+			//			intMaxRating = objSkill.RatingMaximum;
+			//	}
 
-				// Now that we know the upper limit, set all of the Skill Rating Maximums to match.
-				foreach (Skill objSkill in objCharacter.Skills)
-					objSkill.RatingMaximum = intMaxRating;
-				foreach (SkillGroup objGroup in objCharacter.SkillGroups)
-					objGroup.RatingMaximum = intMaxRating;
+			//	// Now that we know the upper limit, set all of the Skill Rating Maximums to match.
+			//	foreach (Skill objSkill in objCharacter.Skills)
+			//		objSkill.RatingMaximum = intMaxRating;
+			//	foreach (SkillGroup objGroup in objCharacter.SkillGroups)
+			//		objGroup.RatingMaximum = intMaxRating;
 
-				// Set the MaxSkillRating for the character so it can be used later when they add new Knowledge Skills or Exotic Skills.
-				objCharacter.MaxSkillRating = intMaxRating;
-			}
+			//	// Set the MaxSkillRating for the character so it can be used later when they add new Knowledge Skills or Exotic Skills.
+			//	objCharacter.MaxSkillRating = intMaxRating;
+			//}
 
 			// Add any Complex Forms the Critter comes with (typically Sprites)
             XmlDocument objXmlProgramDocument = XmlManager.Instance.Load("complexforms.xml");
@@ -804,7 +851,7 @@ namespace Chummer
 			// If this is a Mutant Critter, count up the number of Skill points they start with.
 			if (objCharacter.MetatypeCategory == "Mutant Critters")
 			{
-				foreach (Skill objSkill in objCharacter.Skills)
+				foreach (Skill objSkill in objCharacter.SkillsSection.Skills)
 					objCharacter.MutantCritterBaseSkills += objSkill.Rating;
 			}
 
@@ -815,7 +862,7 @@ namespace Chummer
 				XmlNode objXmlWeapon = objXmlDocument.SelectSingleNode("/chummer/weapons/weapon[name = \"Unarmed Attack\"]");
 				TreeNode objDummy = new TreeNode();
 				Weapon objWeapon = new Weapon(objCharacter);
-				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null, null);
+				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null);
 				objCharacter.Weapons.Add(objWeapon);
 			}
 			catch

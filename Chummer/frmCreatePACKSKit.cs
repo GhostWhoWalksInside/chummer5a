@@ -1,9 +1,29 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+ using Chummer.Backend.Equipment;
+ using Chummer.Skills;
 
 namespace Chummer
 {
@@ -200,35 +220,37 @@ namespace Chummer
 			{
 				// <skills>
 				objWriter.WriteStartElement("skills");
+				
+				//TODO: Figure out what this did?
 				// Active Skills.
-				foreach (Skill objSkill in _objCharacter.Skills)
-				{
-					if (!objSkill.KnowledgeSkill && !objSkill.IsGrouped && objSkill.Rating > 0)
-					{
-						// <skill>
-						objWriter.WriteStartElement("skill");
-						objWriter.WriteElementString("name", objSkill.Name);
-						objWriter.WriteElementString("rating", objSkill.Rating.ToString());
-						if (objSkill.Specialization != "")
-							objWriter.WriteElementString("spec", objSkill.Specialization);
-						// </skill>
-						objWriter.WriteEndElement();
-					}
-				}
+				//foreach (Skill objSkill in _objCharacter.Skills)
+				//{
+				//	if (!objSkill.KnowledgeSkill && !objSkill.IsGrouped && objSkill.Rating > 0)
+				//	{
+				//		// <skill>
+				//		objWriter.WriteStartElement("skill");
+				//		objWriter.WriteElementString("name", objSkill.Name);
+				//		objWriter.WriteElementString("rating", objSkill.Rating.ToString());
+				//		if (objSkill.Specialization != "")
+				//			objWriter.WriteElementString("spec", objSkill.Specialization);
+				//		// </skill>
+				//		objWriter.WriteEndElement();
+				//	}
+				//}  
 
 				// Skill Groups.
-				foreach (SkillGroup objSkillGroup in _objCharacter.SkillGroups)
-				{
-					if (!objSkillGroup.Broken && objSkillGroup.Rating > 0)
-					{
-						// <skillgroup>
-						objWriter.WriteStartElement("skillgroup");
-						objWriter.WriteElementString("name", objSkillGroup.Name);
-						objWriter.WriteElementString("rating", objSkillGroup.Rating.ToString());
-						// </skillgroup>
-						objWriter.WriteEndElement();
-					}
-				}
+				//foreach (SkillGroup objSkillGroup in _objCharacter.SkillGroups)
+				//{
+				//	if (!objSkillGroup.Broken && objSkillGroup.Rating > 0)
+				//	{
+				//		// <skillgroup>
+				//		objWriter.WriteStartElement("skillgroup");
+				//		objWriter.WriteElementString("name", objSkillGroup.Name);
+				//		objWriter.WriteElementString("rating", objSkillGroup.Rating.ToString());
+				//		// </skillgroup>
+				//		objWriter.WriteEndElement();
+				//	}
+				//}
 				// </skills>
 				objWriter.WriteEndElement();
 			}
@@ -239,9 +261,9 @@ namespace Chummer
 				// <knowledgeskills>
 				objWriter.WriteStartElement("knowledgeskills");
 				// Active Skills.
-				foreach (Skill objSkill in _objCharacter.Skills)
+				foreach (Skill objSkill in _objCharacter.SkillsSection.Skills)
 				{
-					if (objSkill.KnowledgeSkill)
+					if (objSkill.IsKnowledgeSkill)
 					{
 						// <skill>
 						objWriter.WriteStartElement("skill");
@@ -526,27 +548,6 @@ namespace Chummer
 							objWriter.WriteEndElement();
 						}
 						
-						// Weapon Mods.
-						if (objWeapon.WeaponMods.Count > 0)
-						{
-							// <mods>
-							objWriter.WriteStartElement("mods");
-							foreach (WeaponMod objMod in objWeapon.WeaponMods)
-							{
-								// Don't attempt to export items included in the Weapon.
-								if (!objMod.IncludedInWeapon)
-								{
-									// <mod>
-									objWriter.WriteStartElement("mod");
-									objWriter.WriteElementString("name", objMod.Name);
-									// </mod>
-									objWriter.WriteEndElement();
-								}
-							}
-							// </mods>
-							objWriter.WriteEndElement();
-						}
-						
 						// Underbarrel Weapon.
 						if (objWeapon.UnderbarrelWeapons.Count > 0)
 						{
@@ -649,27 +650,6 @@ namespace Chummer
 									objWriter.WriteEndElement();
 								}
 
-								// Weapon Mods.
-								if (objWeapon.WeaponMods.Count > 0)
-								{
-									// <mods>
-									objWriter.WriteStartElement("mods");
-									foreach (WeaponMod objMod in objWeapon.WeaponMods)
-									{
-										// Don't attempt to export items included in the Weapon.
-										if (!objMod.IncludedInWeapon)
-										{
-											// <mod>
-											objWriter.WriteStartElement("mod");
-											objWriter.WriteElementString("name", objMod.Name);
-											// </mod>
-											objWriter.WriteEndElement();
-										}
-									}
-									// </mods>
-									objWriter.WriteEndElement();
-								}
-
 								// Underbarrel Weapon.
 								if (objWeapon.UnderbarrelWeapons.Count > 0)
 								{
@@ -731,7 +711,7 @@ namespace Chummer
 			foreach (Gear objGear in lstGear)
 			{
 				// Do not attempt to export Nexi since they're completely custom objects.
-				if (!objGear.Name.StartsWith("Nexus"))
+				if (!objGear.Name.StartsWith("Nexus") && !objGear.IncludedInParent)
 				{
 					// <gear>
 					objWriter.WriteStartElement("gear");

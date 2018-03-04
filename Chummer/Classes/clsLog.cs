@@ -1,3 +1,21 @@
+/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +35,7 @@ namespace Chummer
 		private static bool logEnabled = false;
 		static Log()
 		{
+			Stopwatch sw = Stopwatch.StartNew();
 			if (GlobalOptions.Instance.UseLogging)
 			{
 				//TODO: Add listner to UseLogging to be able to start it mid run
@@ -25,6 +44,7 @@ namespace Chummer
 				stringBuilder = new StringBuilder();
 				logEnabled = true;
 			}
+			sw.TaskEnd("log open");
 		}
 
 		/// <summary>
@@ -281,6 +301,7 @@ namespace Chummer
 			if (!logEnabled)
 				return;
 
+			Stopwatch sw = Stopwatch.StartNew();
 			//TODO: Add timestamp to logs
 
 			stringBuilder.Clear();
@@ -304,7 +325,12 @@ namespace Chummer
 				stringBuilder.Length -= 2;
 			}
 
+			sw.TaskEnd("makeentry");
+
 			logWriter.WriteLine(stringBuilder.ToString());
+			sw.TaskEnd("filewrite");
+			Trace.WriteLine(stringBuilder.ToString());
+			sw.TaskEnd("screenwrite");
 		}
 
 		public static void FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
@@ -312,7 +338,7 @@ namespace Chummer
 			if (!logEnabled)
 				return;
 
-			logWriter.WriteLine("First chance exception: " +e.Exception);
+			logWriter?.WriteLine("First chance exception: " +e?.Exception ?? "null");
 		}
 	}
 }

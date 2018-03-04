@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,12 +25,13 @@ using System.Xml;
 using Octokit;
 using System.Collections.Specialized;
 using System.Net;
+﻿using System.Runtime.Remoting.Channels;
 
 namespace Chummer
 {
 	public partial class frmOptions : Form
 	{
-		private readonly CharacterOptions _characterOptions = new CharacterOptions();
+		private readonly CharacterOptions _characterOptions = new CharacterOptions(null);
 		private bool _skipRefresh;
 		#region Form Events
 		public frmOptions()
@@ -56,21 +75,24 @@ namespace Chummer
 			_characterOptions.AllowCyberwareESSDiscounts = chkAllowCyberwareESSDiscounts.Checked;
             _characterOptions.AllowInitiationInCreateMode = chkAllowInitiation.Checked;
             _characterOptions.AllowSkillDiceRolling = chkAllowSkillDiceRolling.Checked;
+            _characterOptions.DontUseCyberlimbCalculation = chkDontUseCyberlimbCalculation.Checked;
             _characterOptions.AllowSkillRegrouping = chkAllowSkillRegrouping.Checked;
             _characterOptions.AlternateMatrixAttribute = chkAlternateMatrixAttribute.Checked;
             _characterOptions.AlternateComplexFormCost = chkAlternateComplexFormCost.Checked;
             _characterOptions.ArmorDegradation = chkArmorDegradation.Checked;
             _characterOptions.AutomaticCopyProtection = chkAutomaticCopyProtection.Checked;
             _characterOptions.AutomaticRegistration = chkAutomaticRegistration.Checked;
-            _characterOptions.BreakSkillGroupsInCreateMode = chkBreakSkillGroupsInCreateMode.Checked;
             _characterOptions.CalculateCommlinkResponse = chkCalculateCommlinkResponse.Checked;
             _characterOptions.CapSkillRating = chkCapSkillRating.Checked;
             _characterOptions.ConfirmDelete = chkConfirmDelete.Checked;
             _characterOptions.ConfirmKarmaExpense = chkConfirmKarmaExpense.Checked;
             _characterOptions.CreateBackupOnCareer = chkCreateBackupOnCareer.Checked;
             _characterOptions.CyberlegMovement = chkCyberlegMovement.Checked;
-            _characterOptions.DontDoubleQualities = chkDontDoubleQualities.Checked;
-            _characterOptions.EnforceCapacity = chkEnforceCapacity.Checked;
+	        _characterOptions.UseTotalValueForFreeContacts = chkUseTotalValueForFreeContacts.Checked;
+			_characterOptions.UseTotalValueForFreeKnowledge = chkUseTotalValueForFreeKnowledge.Checked;
+			_characterOptions.DontDoubleQualityPurchases = chkDontDoubleQualityPurchases.Checked;
+			_characterOptions.DontDoubleQualityRefunds = chkDontDoubleQualityRefunds.Checked;
+			_characterOptions.EnforceCapacity = chkEnforceCapacity.Checked;
             _characterOptions.EnforceMaximumSkillRatingModifier = chkEnforceSkillMaximumModifiedRating.Checked;
             _characterOptions.ErgonomicProgramLimit = chkErgonomicProgramLimit.Checked;
             _characterOptions.EssenceDecimals = Convert.ToInt32(cboEssenceDecimals.SelectedValue);
@@ -85,6 +107,9 @@ namespace Chummer
             _characterOptions.FreeContactsMultiplierEnabled = chkContactMultiplier.Checked;
                 if (chkContactMultiplier.Checked)
                     nudContactMultiplier.Enabled = true;
+            _characterOptions.DroneArmorMultiplier = Convert.ToInt32(nudDroneArmorMultiplier.Value);
+            _characterOptions.DroneArmorMultiplierEnabled = chkDroneArmorMultiplier.Checked;
+            nudDroneArmorMultiplier.Enabled = chkDroneArmorMultiplier.Checked;
             _characterOptions.FreeKarmaContacts = chkFreeKarmaContacts.Checked;
             _characterOptions.FreeKarmaKnowledge = chkFreeKarmaKnowledge.Checked;
             _characterOptions.FreeKnowledgeMultiplierEnabled = chkKnowledgeMultiplier.Checked;
@@ -105,8 +130,8 @@ namespace Chummer
             _characterOptions.PrintSkillsWithZeroRating = chkPrintSkillsWithZeroRating.Checked;
             _characterOptions.RestrictRecoil = chkRestrictRecoil.Checked;
             _characterOptions.StrengthAffectsRecoil = Convert.ToBoolean(chkStrengthAffectsRecoil.Checked);
-            _characterOptions.UseCalculatedVehicleSensorRatings = chkUseCalculatedVehicleSensorRatings.Checked;
-            _characterOptions.UsePointsOnBrokenGroups = chkUsePointsOnBrokenGroups.Checked;
+			_characterOptions.UseCalculatedPublicAwareness = chkUseCalculatedPublicAwareness.Checked;
+            _characterOptions.StrictSkillGroupsInCreateMode = chkStrictSkillGroups.Checked;
 
             switch (cboLimbCount.SelectedValue.ToString())
             {
@@ -168,10 +193,13 @@ namespace Chummer
 
         private void cboBuildMethod_SelectedIndexChanged(object sender, EventArgs e)
         {
+	        if (cboBuildMethod.SelectedValue != null)
+	        {
             if (cboBuildMethod.SelectedValue.ToString() == LanguageManager.Instance.GetString("String_Karma"))
                 nudBP.Value = 800;
             else if (cboBuildMethod.SelectedValue.ToString() == LanguageManager.Instance.GetString("String_LifeModule"))
 				nudBP.Value = 750;
+        }
         }
 
         private void cboSetting_SelectedIndexChanged(object sender, EventArgs e)
@@ -248,6 +276,15 @@ namespace Chummer
             {
                 nudKnowledgeMultiplier.Value = 2;
                 nudKnowledgeMultiplier.Enabled = false;
+            }
+        }
+
+        private void chkDroneArmorMultiplier_CheckedChanged(object sender, EventArgs e)
+        {
+            nudDroneArmorMultiplier.Enabled = chkDroneArmorMultiplier.Checked;
+            if (!chkDroneArmorMultiplier.Checked)
+            {
+                nudDroneArmorMultiplier.Value = 2;
             }
         }
 
@@ -361,10 +398,29 @@ namespace Chummer
             CommonFunctions objCommon = new CommonFunctions(null);
             objCommon.OpenPDF(treSourcebook.SelectedNode.Tag + " 5");
         }
-        #endregion
+		
+		protected override void OnFormClosing(FormClosingEventArgs e)
+		{
+			string text = LanguageManager.Instance.GetString("Message_Options_SaveForms");
+			string caption = LanguageManager.Instance.GetString("MessageTitle_Options_CloseForms");
 
-        #region Methods
-        private void MoveControls()
+			switch (MessageBox.Show(text, caption, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+			{
+				case DialogResult.Yes:
+					cmdOK_Click(cmdOK, e);
+					break;
+				case DialogResult.Cancel:
+					e.Cancel = true;
+					break;
+				default:
+					break;
+			}
+		}
+
+		#endregion
+
+		#region Methods
+		private void MoveControls()
         {
             int intWidth = 0;
 
@@ -553,6 +609,7 @@ namespace Chummer
 			chkAllowCyberwareESSDiscounts.Checked = _characterOptions.AllowCyberwareESSDiscounts;
 			chkAllowInitiation.Checked = _characterOptions.AllowInitiationInCreateMode;
 			chkAllowSkillDiceRolling.Checked = _characterOptions.AllowSkillDiceRolling;
+            chkDontUseCyberlimbCalculation.Checked = _characterOptions.DontUseCyberlimbCalculation;
 			chkAllowSkillRegrouping.Checked = _characterOptions.AllowSkillRegrouping;
 			chkAlternateComplexFormCost.Checked = _characterOptions.AlternateComplexFormCost;
 			chkAlternateMatrixAttribute.Checked = _characterOptions.AlternateMatrixAttribute;
@@ -560,16 +617,19 @@ namespace Chummer
 			chkArmorSuitCapacity.Checked = _characterOptions.ArmorSuitCapacity;
 			chkAutomaticCopyProtection.Checked = _characterOptions.AutomaticCopyProtection;
 			chkAutomaticRegistration.Checked = _characterOptions.AutomaticRegistration;
-			chkBreakSkillGroupsInCreateMode.Checked = _characterOptions.BreakSkillGroupsInCreateMode;
 			chkCalculateCommlinkResponse.Checked = _characterOptions.CalculateCommlinkResponse;
 			chkCapSkillRating.Checked = _characterOptions.CapSkillRating;
 			chkConfirmDelete.Checked = _characterOptions.ConfirmDelete;
 			chkConfirmKarmaExpense.Checked = _characterOptions.ConfirmKarmaExpense;
+	        chkUseTotalValueForFreeContacts.Checked = _characterOptions.UseTotalValueForFreeContacts;
+	        chkUseTotalValueForFreeKnowledge.Checked = _characterOptions.UseTotalValueForFreeKnowledge;
 			chkContactMultiplier.Checked = _characterOptions.FreeContactsMultiplierEnabled;
+            chkDroneArmorMultiplier.Checked = _characterOptions.DroneArmorMultiplierEnabled;
 			chkContactPoints.Checked = _characterOptions.UseContactPoints;
 			chkCreateBackupOnCareer.Checked = _characterOptions.CreateBackupOnCareer;
 			chkCyberlegMovement.Checked = _characterOptions.CyberlegMovement;
-			chkDontDoubleQualities.Checked = _characterOptions.DontDoubleQualities;
+			chkDontDoubleQualityPurchases.Checked = _characterOptions.DontDoubleQualityPurchases;
+			chkDontDoubleQualityRefunds.Checked = _characterOptions.DontDoubleQualityRefunds;
 			chkEnforceCapacity.Checked = _characterOptions.EnforceCapacity;
 			chkEnforceSkillMaximumModifiedRating.Checked = _characterOptions.EnforceMaximumSkillRatingModifier;
 			chkErgonomicProgramLimit.Checked = _characterOptions.ErgonomicProgramLimit;
@@ -597,17 +657,16 @@ namespace Chummer
 			chkRestrictRecoil.Checked = _characterOptions.RestrictRecoil;
 			chkSpecialKarmaCost.Checked = _characterOptions.SpecialKarmaCostBasedOnShownValue;
 			chkStrengthAffectsRecoil.Checked = _characterOptions.StrengthAffectsRecoil;
-			chkUseCalculatedVehicleSensorRatings.Checked = _characterOptions.UseCalculatedVehicleSensorRatings;
-			chkUsePointsOnBrokenGroups.Checked = _characterOptions.UsePointsOnBrokenGroups;
+			chkUseCalculatedPublicAwareness.Checked = _characterOptions.UseCalculatedPublicAwareness;
+			chkStrictSkillGroups.Checked = _characterOptions.StrictSkillGroupsInCreateMode;
 			nudBP.Value = _characterOptions.BuildPoints;
 			nudContactMultiplier.Enabled = _characterOptions.FreeContactsMultiplierEnabled;
-			nudContactMultiplier.Value = 3;
 			nudContactMultiplier.Value = _characterOptions.FreeContactsMultiplier;
-			nudContactMultiplier.Value = _characterOptions.FreeContactsMultiplier;
-			nudKnowledgeMultiplier.Enabled = _characterOptions.FreeKnowledgeMultiplierEnabled;
-			nudKnowledgeMultiplier.Value = 2;
-			nudKnowledgeMultiplier.Value = _characterOptions.FreeKnowledgeMultiplier;
-			nudMaxAvail.Value = _characterOptions.Availability;
+            nudKnowledgeMultiplier.Enabled = _characterOptions.FreeKnowledgeMultiplierEnabled;
+            nudKnowledgeMultiplier.Value = _characterOptions.FreeKnowledgeMultiplier;
+            nudDroneArmorMultiplier.Enabled = _characterOptions.DroneArmorMultiplierEnabled;
+            nudDroneArmorMultiplier.Value = _characterOptions.DroneArmorMultiplier;
+            nudMaxAvail.Value = _characterOptions.Availability;
 			nudMetatypeCostsKarmaMultiplier.Value = _characterOptions.MetatypeCostsKarmaMultiplier;
 			nudNuyenPerBP.Value = _characterOptions.NuyenPerBP;
 			txtSettingName.Enabled = cboSetting.SelectedValue.ToString() != "default.xml";
@@ -653,7 +712,7 @@ namespace Chummer
             GlobalOptions.Instance.Language = cboLanguage.SelectedValue.ToString();
             GlobalOptions.Instance.StartupFullscreen = chkStartupFullscreen.Checked;
             GlobalOptions.Instance.SingleDiceRoller = chkSingleDiceRoller.Checked;
-            if (cboXSLT.SelectedValue.ToString() == "")
+            if (cboXSLT.SelectedValue == null || cboXSLT.SelectedValue.ToString() == "")
             {
                 cboXSLT.SelectedValue = "Shadowrun 5";
             }
@@ -665,6 +724,7 @@ namespace Chummer
             GlobalOptions.Instance.OpenPDFsAsURLs = chkOpenPDFsAsURLs.Checked;
             GlobalOptions.Instance.LifeModuleEnabled = chkLifeModule.Checked;
             GlobalOptions.Instance.MissionsOnly = chkMissions.Checked;
+			GlobalOptions.Instance.Dronemods = chkDronemods.Checked;
         }
 
 	    /// <summary>
@@ -689,6 +749,8 @@ namespace Chummer
             objRegistry.SetValue("pdfapppath", txtPDFAppPath.Text);
             objRegistry.SetValue("lifemodule", chkLifeModule.Checked.ToString());
 			objRegistry.SetValue("missionsonly", chkMissions.Checked.ToString());
+			objRegistry.SetValue("dronemods", chkDronemods.Checked.ToString());
+
 
             // Save the SourcebookInfo.
             Microsoft.Win32.RegistryKey objSourceRegistry = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\Chummer5\\Sourcebook");
@@ -752,7 +814,7 @@ namespace Chummer
             nudKarmaImproveComplexForm.Value = 1;
             nudKarmaComplexFormOption.Value = 2;
             nudKarmaComplexFormSkillsoft.Value = 1;
-            nudKarmaSpirit.Value = 2;
+            nudKarmaSpirit.Value = 1;
             nudKarmaManeuver.Value = 4;
             nudKarmaNuyenPer.Value = 2000;
             nudKarmaContact.Value = 1;
@@ -786,22 +848,34 @@ namespace Chummer
 
         private void PopulateBuildMethodList()
         {
+			// Populate the Build Method list.
             List<ListItem> lstBuildMethod = new List<ListItem>();
-
             ListItem objKarma = new ListItem();
-            objKarma.Value = LanguageManager.Instance.GetString("String_Karma");
+			objKarma.Value = "Karma";
             objKarma.Name = LanguageManager.Instance.GetString("String_Karma");
 
-            ListItem objLifeModules = new ListItem();
-			objLifeModules.Value = LanguageManager.Instance.GetString("String_LifeModule");
-			objLifeModules.Name = LanguageManager.Instance.GetString("String_LifeModule");
+			ListItem objPriority = new ListItem();
+			objPriority.Value = "Priority";
+			objPriority.Name = LanguageManager.Instance.GetString("String_Priority");
 
+			ListItem objSumtoTen = new ListItem();
+			objSumtoTen.Value = "SumtoTen";
+			objSumtoTen.Name = LanguageManager.Instance.GetString("String_SumtoTen");
+
+			if (GlobalOptions.Instance.LifeModuleEnabled)
+			{
+				ListItem objLifeModule = new ListItem();
+				objLifeModule.Value = "LifeModule";
+				objLifeModule.Name = LanguageManager.Instance.GetString("String_LifeModule");
+				lstBuildMethod.Add(objLifeModule);
+			}
+
+			lstBuildMethod.Add(objPriority);
             lstBuildMethod.Add(objKarma);
-            lstBuildMethod.Add(objLifeModules);
-
+			lstBuildMethod.Add(objSumtoTen);
+			cboBuildMethod.DataSource = lstBuildMethod;
             cboBuildMethod.ValueMember = "Value";
             cboBuildMethod.DisplayMember = "Name";
-            cboBuildMethod.DataSource = lstBuildMethod;
         }
 
         private void PopulateEssenceDecimalsList()
@@ -855,10 +929,12 @@ namespace Chummer
             tipTooltip.SetToolTip(chkKnucks, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsKnucks"), width));
             tipTooltip.SetToolTip(chkIgnoreArt, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsIgnoreArt"), width));
             tipTooltip.SetToolTip(chkCyberlegMovement, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsCyberlegMovement"), width));
-            tipTooltip.SetToolTip(chkDontDoubleQualities, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsDontDoubleQualities"), width));
-            tipTooltip.SetToolTip(chkUsePointsOnBrokenGroups, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsUsePointsOnBrokenGroups"), width));
+            tipTooltip.SetToolTip(chkDontDoubleQualityPurchases, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsDontDoubleQualityPurchases"), width));
+			tipTooltip.SetToolTip(chkDontDoubleQualityRefunds, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsDontDoubleQualityRefunds"), width));
+			tipTooltip.SetToolTip(chkStrictSkillGroups, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionStrictSkillGroups"), width));
             tipTooltip.SetToolTip(chkAllowInitiation, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_OptionsAllowInitiation"), width));
-        }
+			tipTooltip.SetToolTip(chkUseCalculatedPublicAwareness, CommonFunctions.WordWrap(LanguageManager.Instance.GetString("Tip_PublicAwareness"), width));
+		}
 
         private void PopulateSettingsList()
         {
@@ -949,6 +1025,7 @@ namespace Chummer
             chkSingleDiceRoller.Checked = GlobalOptions.Instance.SingleDiceRoller;
             chkDatesIncludeTime.Checked = GlobalOptions.Instance.DatesIncludeTime;
             chkMissions.Checked = GlobalOptions.Instance.MissionsOnly;
+			chkDronemods.Checked = GlobalOptions.Instance.Dronemods;
             chkPrintToFileFirst.Checked = GlobalOptions.Instance.PrintToFileFirst;
             chkOpenPDFsAsURLs.Checked = GlobalOptions.Instance.OpenPDFsAsURLs;
             txtPDFAppPath.Text = GlobalOptions.Instance.PDFAppPath;
@@ -1129,6 +1206,6 @@ namespace Chummer
 			Clipboard.SetText(response);
 			#endif
 		}
-		#endregion
-	}
+        #endregion        
+    }
 }

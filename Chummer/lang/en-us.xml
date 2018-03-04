@@ -1,9 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<!--This file is part of Chummer5a.
+
+    Chummer5a is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Chummer5a is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+
+    You can obtain the full source code for Chummer5a at
+    https://github.com/chummer5a/chummer5a
+-->
 <chummer>
 	<version>-350</version>
 	<name>English (US)</name>
 	<strings>
 		<!-- Region Common Strings -->
+    <string>
+      <key>String_Search</key>
+      <text>Search:</text>
+    </string>
 		<string>
 			<key>String_Limit</key>
 			<text>Limit:</text>
@@ -397,6 +419,10 @@
 			<text>Karma:</text>
 		</string>
 		<string>
+			<key>Label_LP</key>
+			<text>LP:</text>
+		</string>
+		<string>
 			<key>Label_KarmaRemaining</key>
 			<text>Karma Remaining:</text>
 		</string>
@@ -467,6 +493,34 @@
 		<string>
 			<key>Label_Slots</key>
 			<text>Slots:</text>
+		</string>
+		<string>
+			<key>Label_Weapons</key>
+			<text>Weapons:</text>
+		</string>
+		<string>
+			<key>Label_Protection</key>
+			<text>Prot:</text>
+		</string>
+		<string>
+			<key>Label_Powertrain</key>
+			<text>Power:</text>
+		</string>
+		<string>
+			<key>Label_Bodymod</key>
+			<text>Body Mods:</text>
+		</string>
+		<string>
+			<key>Label_Electromagnetic</key>
+			<text>Elec:</text>
+		</string>
+		<string>
+			<key>Label_Cosmetic</key>
+			<text>Cosmetic:</text>
+		</string>
+		<string>
+			<key>Label_DroneModSlots</key>
+			<text>Mod Slots:</text>
 		</string>
 		<string>
 			<key>Label_Rating</key>
@@ -2119,6 +2173,14 @@
 			<text>You have {0} remaining but are only allowed to carry {1} over to your career.\nAre you sure you want to lose these extra points?</text>
 		</string>
 		<string>
+			<key>MessageTitle_ExtraPoints</key>
+			<text>Extra Points</text>
+		</string>
+		<string>
+			<key>Message_ExtraPoints</key>
+			<text>You have {0} points to spend on {1}.\nAre you sure you want to lose these extra points?</text>
+		</string>
+		<string>
 			<key>Message_NoExtraKarma</key>
 			<text>You have {0} remaining but are not allowed to carry any over to your career.\nAre you sure you want to lose these extra points?</text>
 		</string>	
@@ -3346,8 +3408,12 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<text>Allows characters with two Cyberlegs to use the Cyberlegs Agility to calculate movement rates.</text>
 		</string>
 		<string>
-			<key>Tip_OptionsDontDoubleQualities</key>
-			<text>Allows characters in Career mode to purchase Positive Qualities and buy off Negative at their normal price instead of doubling them.</text>
+			<key>Tip_OptionsDontDoubleQualityRefunds</key>
+			<text>Allows characters in Career mode to remove Negative Qualities at their normal price instead of doubling them.</text>
+		</string>
+		<string>
+			<key>Tip_OptionsDontDoubleQualityPurchases</key>
+			<text>Allows characters in Career mode to purchase Positive Qualities at their normal price instead of doubling them.</text>
 		</string>
 		<string>
 			<key>Tip_OptionsExceptionalAttribute</key>
@@ -3365,6 +3431,10 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Tip_OptionsAllowInitiation</key>
 			<text>Allows Initiation/Submersion using Karma in Create mode.</text>
 		</string>
+    <string>
+      <key>Tip_OptionStrictSkillGroups</key>
+      <text>Disallow breaking of skill groups with karma during create mode</text>
+    </string>
 		<string>
 			<key>Tip_CommonAttributesAug</key>
 			<text>Augmented Attribute value.</text>
@@ -3411,7 +3481,7 @@ Only one attribute may be at its Maximum value during character creation.</text>
 		</string>
 		<string>
 			<key>Tip_StreetCred</key>
-			<text>Street Cred is calculated as Career Karma ÷ 10, rounded up, and can be further adjusted by Game Masters.</text>
+			<text>Street Cred is calculated as Career Karma ÷ 10, rounded down, and can be further adjusted by Game Masters.</text>
 		</string>
 		<string>
 			<key>Tip_Notoriety</key>
@@ -3431,6 +3501,10 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Label_SkillGroups</key>
 			<text>Skill Groups</text>
 		</string>
+    <string>
+      <key>Label_SkillGroup_Broken</key>
+      <text>Broken</text>
+    </string>
 		<string>
 			<key>Label_ActiveSkills</key>
 			<text>Active Skills</text>
@@ -4425,10 +4499,26 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Checkbox_Options_UseLifeModule</key>
 			<text>Life modules available</text>
 		</string>
+		<string>
+			<key>Checkbox_Options_Missions</key>
+			<text>Hide Qualities prohibited by Missions</text>
+		</string>
+		<string>
+			<key>Checkbox_Options_Dronemods</key>
+			<text>Use Drone Modification rules (R5 122)</text>
+		</string>
+		<string>
+			<key>Checkbox_Options_UseCalculatedPublicAwareness</key>
+			<text>Public Awareness should be (Street Cred + Notoriety /3)</text>
+		</string>
     <string>
-      <key>Checkbox_Options_Missions</key>
-      <text>Hide Qualities prohibited by Missions</text>
+      <key>Checkbox_Options_StrictSkillGroups</key>
+      <text>Strict interprentation of breaking skill groups in create mode</text>
     </string>
+		<string>
+			<key>Checkbox_Options_UseCyberlimbCalculation</key>
+			<text>Don't use Cyberlimbs for calculating augmented Attributes</text>
+		</string>
 		<string>
 			<key>String_SelectBP_LifeModuleSummary</key>
 			<text>Enter the maximum availability and karma you are allowed to create your character with (Default {0})</text>
@@ -4781,7 +4871,25 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Tip_DiceRoller</key>
 			<text>Open Dice Roller</text>
 		</string>
+		<string>
+			<key>Tip_RecoilAccessories</key>
+			<text> + {0} ({1} (Deployable))</text>
+		</string>
 		<!-- End Region-->
+		<!-- Region ASDF Attributes-->
+		<string>
+			<key>String_Attack</key>
+			<text>Attack</text>
+		</string>
+		<string>
+			<key>String_Sleaze</key>
+			<text>Sleaze</text>
+		</string>
+		<string>
+			<key>String_DataProcessing</key>
+			<text>Data Processing</text>
+		</string>
+		<!-- End Region -->
 		<!-- Region Individual Form- and UserControl-specific strings below this point -->
 		<!-- Region Contacts/Enemies -->
 		<string>
@@ -5931,6 +6039,14 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<text>Print all Active Skills with total score higher than 0</text>
 		</string>
 		<string>
+			<key>Checkbox_Options_UseTotalValueForFreeKnowledge</key>
+			<text>Free Knowledge Skill Points are calculated with augmented LOG+INT values.</text>
+		</string>
+		<string>
+			<key>Checkbox_Options_UseTotalValueForFreeContacts</key>
+			<text>Free Contact Points are calculated with augmented LOG+INT values.</text>
+		</string>
+		<string>
 			<key>Checkbox_Options_PrintExpenses</key>
 			<text>Print Karma and Nuyen Expenses</text>
 		</string>
@@ -6195,8 +6311,12 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<text>Knucks Benefit from Unarmed Attack Bonuses</text>
 		</string>
 		<string>
-			<key>Checkbox_Options_DontDoubleQualities</key>
-			<text>Don't double the cost of Qualities in Career Mode</text>
+			<key>Checkbox_Options_DontDoubleNegativeQualityRefunds</key>
+			<text>Don't double the cost of refunding Negative Qualities in Career Mode</text>
+		</string>
+		<string>
+			<key>Checkbox_Options_DontDoubleQualityPurchases</key>
+			<text>Don't double the cost of purchasing Positive Qualities in Career Mode</text>
 		</string>
 		<string>
 			<key>Checkbox_Options_IgnoreArt</key>
@@ -6333,7 +6453,7 @@ Only one attribute may be at its Maximum value during character creation.</text>
 		<string>
 			<key>Checkbox_Options_UseRestrictionsToRecoilCompensation</key>
 			<text>Use Restrictions to Recoil Compensation (RG 53)</text>
-		</string>
+		</string>		
 		<string>
 			<key>Checkbox_Options_AutomaticCopyProtection</key>
 			<text>Automatically add Copy Protection plugin to Matrix Programs (requires Unwired)</text>
@@ -6434,7 +6554,7 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<key>Checkbox_Option_PrintToFileFirst</key>
 			<text>Apply Linux printing fix</text>
 		</string>
-		<string>
+    <string>
 			<key>Label_Options_EssenceDecimals</key>
 			<text>Number of decimal places to round Essence to:</text>
 		</string>
@@ -6451,9 +6571,17 @@ Only one attribute may be at its Maximum value during character creation.</text>
 			<text>Technomancers may select Autosofts as Complex Forms</text>
 		</string>
 		<string>
+			<key>Checkbox_Options_DroneArmorMultiplier</key>
+			<text>Limit Drone Armor Enhance ment to Drone Armor</text>
+		</string>
+		<string>
 			<key>Message_Options_CloseForms</key>
 			<text>Options are only enumerated on character load. Should we close the current open characters?</text>
-		</string>		
+		</string>
+		<string>
+			<key>Message_Options_SaveForms</key>
+			<text>Would you like to save any changes made to your options?</text>
+		</string>
 		<string>
 			<key>MessageTitle_Options_CloseForms</key>
 			<text>Close Forms</text>
@@ -6777,6 +6905,17 @@ Only one attribute may be at its Maximum value during character creation.</text>
 		<string>
 			<key>Label_SelectExoticSkill_Description</key>
 			<text>Select an Exotic Active Skill to add to your character.</text>
+		</string>
+		<!-- End Region-->
+		<!-- Region Select Gear Window -->
+    <!-- Select Skill Specialisation Window -->
+ 		<string>
+			<key>Title_SelectSkillSpecialization</key>
+ 			<text>Select a Skill Specialization</text>
+		</string>
+		<string>
+			<key>Label_SelectSkillSpecialization_Description</key>
+			<text>Select a Skill Specialization to add to your character.</text>
 		</string>
 		<!-- End Region-->
 		<!-- Region Select Gear Window -->
@@ -7171,6 +7310,10 @@ Only one attribute may be at its Maximum value during character creation.</text>
 		<string>
 			<key>Checkbox_SelectQuality_Metagenetic</key>
 			<text>Show only Metagenetic Qualities</text>
+		</string>
+		<string>
+			<key>Checkbox_SelectQuality_Not_Metagenetic</key>
+			<text>Don't show Metagenetic Qualities</text>
 		</string>
 		<string>
 			<key>Message_SelectQuality_QualityLimit</key>

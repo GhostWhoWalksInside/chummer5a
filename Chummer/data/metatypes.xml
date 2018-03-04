@@ -1,6 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<!--This file is part of Chummer5a.
+
+    Chummer5a is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Chummer5a is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+
+    You can obtain the full source code for Chummer5a at
+    https://github.com/chummer5a/chummer5a
+-->
 <chummer>
-	<version>-385</version>
+	<version>0</version>
 	<categories>
 		<category>Metahuman</category>
 		<category>Metavariant</category>
@@ -42,10 +60,10 @@
 			<edgmin>2</edgmin>
 			<edgmax>7</edgmax>
 			<edgaug>7</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
+			<resmin>1</resmin>
 			<resmax>6</resmax>
 			<resaug>6</resaug>
 			<essmin>0</essmin>
@@ -95,10 +113,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -111,7 +129,7 @@
 						<power>Dual Natured</power>
 						<power select="Hearing,Smell">Enhanced Senses</power>
 						<power select="Sunlight, Moderate">Allergy</power>
-						<power select="Metahuman Blood">Dietary Requirement</power>
+						<power select="Metahuman Flesh">Dietary Requirement</power>
 						<power select="Blind">Reduced Senses</power>
 						<power>Sapience</power>
 					</powers>
@@ -121,15 +139,18 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
 						<naturalweapon>
 							<name>Infected Claws</name>
+							<reach>0</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -201,10 +222,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -262,10 +283,10 @@
 			<edgmin>1</edgmin>
 			<edgmax>6</edgmax>
 			<edgaug>6</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
+			<resmin>1</resmin>
 			<resmax>6</resmax>
 			<resaug>6</resaug>
 			<essmin>0</essmin>
@@ -317,10 +338,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -343,7 +364,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -352,7 +374,8 @@
 							<reach>0</reach>
 							<damage>(STR+3)P</damage>
 							<ap>-2</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -424,10 +447,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -451,7 +474,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -532,10 +556,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -558,7 +582,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -567,7 +592,8 @@
 							<damage>(STR+1)P</damage>
 							<reach>0</reach>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -639,10 +665,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -698,10 +724,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -760,10 +786,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -818,10 +844,10 @@
 					<edgmin>2</edgmin>
 					<edgmax>7</edgmax>
 					<edgaug>7</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -879,10 +905,10 @@
 			<edgmin>1</edgmin>
 			<edgmax>6</edgmax>
 			<edgaug>6</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
+			<resmin>1</resmin>
 			<resmax>6</resmax>
 			<resaug>6</resaug>
 			<essmin>0</essmin>
@@ -937,10 +963,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -964,7 +990,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -973,7 +1000,8 @@
 							<reach>0</reach>
 							<damage>(STR+2)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1064,10 +1092,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1090,7 +1118,8 @@
 							<reach>-1</reach>
 							<damage>(STR+2)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1162,10 +1191,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1188,7 +1217,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1197,7 +1227,8 @@
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
 							<reach>0</reach>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1269,10 +1300,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1287,7 +1318,6 @@
 							<quality>Thermographic Vision</quality>
 						</positive>
 						<negative>
-							<quality>Distinctive Style</quality>
 							<quality>Neoteny</quality>
 						</negative>
 					</qualities>
@@ -1301,8 +1331,8 @@
 					<bodmin>1</bodmin>
 					<bodmax>6</bodmax>
 					<bodaug>10</bodaug>
-					<agimin>2</agimin>
-					<agimax>7</agimax>
+					<agimin>1</agimin>
+					<agimax>6</agimax>
 					<agiaug>11</agiaug>
 					<reamin>1</reamin>
 					<reamax>6</reamax>
@@ -1328,10 +1358,10 @@
 					<inimin>2</inimin>
 					<inimax>12</inimax>
 					<iniaug>20</iniaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1342,7 +1372,7 @@
 					<sprint>+1m/hit</sprint>					
 					<qualities>
 						<positive>
-							<quality>Low-Light Vision</quality>
+							<quality>Thermographic Vision</quality>
 							<quality select="AGI">Metagenetic Improvement</quality>
 							<quality>Monkey Paws</quality>
 							<quality>Functional Tail (Prehensile)</quality>
@@ -1362,9 +1392,9 @@
 					<bodmin>2</bodmin>
 					<bodmax>7</bodmax>
 					<bodaug>11</bodaug>
-					<agimin>2</agimin>
-					<agimax>7</agimax>
-					<agiaug>11</agiaug>
+					<agimin>1</agimin>
+					<agimax>6</agimax>
+					<agiaug>10</agiaug>
 					<reamin>1</reamin>
 					<reamax>6</reamax>
 					<reaaug>10</reaaug>
@@ -1389,10 +1419,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1450,10 +1480,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1512,10 +1542,10 @@
 			<edgmin>1</edgmin>
 			<edgmax>6</edgmax>
 			<edgaug>6</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
+			<resmin>1</resmin>
 			<resmax>6</resmax>
 			<resaug>6</resaug>
 			<essmin>0</essmin>
@@ -1568,10 +1598,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1594,7 +1624,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1603,7 +1634,8 @@
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
 							<reach>0</reach>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1675,10 +1707,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1702,7 +1734,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1711,7 +1744,8 @@
 							<damage>(STR+1)P</damage>
 							<reach>0</reach>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -1782,10 +1816,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1842,10 +1876,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1899,10 +1933,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -1957,10 +1991,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2018,10 +2052,10 @@
 			<edgmin>1</edgmin>
 			<edgmax>6</edgmax>
 			<edgaug>6</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
+			<resmin>1</resmin>
 			<resmax>6</resmax>
 			<resaug>6</resaug>
 			<essmin>0</essmin>
@@ -2077,10 +2111,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2136,10 +2170,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2196,10 +2230,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2222,7 +2256,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2231,7 +2266,8 @@
 							<damage>(STR+1)P</damage>
 							<reach>0</reach>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2303,10 +2339,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2363,10 +2399,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2423,10 +2459,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2453,7 +2489,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2462,7 +2499,8 @@
 							<damage>(STR+2)P</damage>
 							<reach>1</reach>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2541,10 +2579,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2568,7 +2606,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2577,7 +2616,8 @@
 							<damage>(STR+2)P</damage>
 							<reach>0</reach>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2656,8 +2696,8 @@
 			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
-			<resmax>0</resmax>
+			<resmin>1</resmin>
+			<resmax>6</resmax>
 			<resaug>0</resaug>
 			<essmin>0</essmin>
 			<essmax>6</essmax>
@@ -2730,12 +2770,12 @@
 			<edgmin>1</edgmin>
 			<edgmax>5</edgmax>
 			<edgaug>5</edgaug>
-			<magmin>0</magmin>
+			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
-			<resmax>0</resmax>
-			<resaug>0</resaug>
+			<resmin>1</resmin>
+			<resmax>6</resmax>
+			<resaug>6</resaug>
 			<essmin>0</essmin>
 			<essmax>6</essmax>
 			<essaug>6</essaug>
@@ -2812,9 +2852,9 @@
 			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
-			<resmax>0</resmax>
-			<resaug>0</resaug>
+			<resmin>1</resmin>
+			<resmax>6</resmax>
+			<resaug>6</resaug>
 			<essmin>0</essmin>
 			<essmax>6</essmax>
 			<essaug>6</essaug>
@@ -2888,9 +2928,9 @@
 			<magmin>1</magmin>
 			<magmax>6</magmax>
 			<magaug>6</magaug>
-			<resmin>0</resmin>
-			<resmax>0</resmax>
-			<resaug>0</resaug>
+			<resmin>1</resmin>
+			<resmax>6</resmax>
+			<resaug>6</resaug>
 			<essmin>0</essmin>
 			<essmax>6</essmax>
 			<essaug>6</essaug>
@@ -2955,10 +2995,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -2981,7 +3021,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -2989,7 +3030,9 @@
 							<name>Infected Claws</name>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<reach>0</reach>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -3061,10 +3104,10 @@
 					<edgmin>1</edgmin>
 					<edgmax>6</edgmax>
 					<edgaug>6</edgaug>
-					<magmin>0</magmin>
+					<magmin>1</magmin>
 					<magmax>6</magmax>
 					<magaug>6</magaug>
-					<resmin>0</resmin>
+					<resmin>1</resmin>
 					<resmax>6</resmax>
 					<resaug>6</resaug>
 					<essmin>0</essmin>
@@ -3084,7 +3127,8 @@
 							<reach>0</reach>
 							<damage>(STR+2)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -3093,7 +3137,8 @@
 							<reach>-1</reach>
 							<damage>(STR+1)P</damage>
 							<ap>-1</ap>
-							<useskill>Unarmed</useskill>
+							<useskill>Unarmed Combat</useskill>
+							<accuracy>Physical</accuracy>
 							<source>RF</source>
 							<page>137</page>
 						</naturalweapon>
@@ -3213,7 +3258,7 @@
 					<quality>Go Big or Go Home</quality>
 					<quality>Golden Screwdriver</quality>
 					<quality>Guts</quality>
-					<quality>Hello World</quality>
+					<quality>Hello World!</quality>
 					<quality>High Pain Tolerance</quality>
 					<quality>Home Ground</quality>
 					<quality>I C U</quality>
@@ -3231,13 +3276,16 @@
 					<quality>Overclocker</quality>
 					<quality>Perceptive</quality>
 					<quality>Photographic Memory</quality>
-					<quality>Pilot Origins</quality>
+					<quality>Pilot Origins (Rating 1)</quality>
+					<quality>Pilot Origins (Rating 2)</quality>
+					<quality>Pilot Origins (Rating 3)</quality>
 					<quality>Prime Data-Haven</quality>
 					<quality>Quick Healer</quality>
 					<quality>Redundancy</quality>
 					<quality>Restricted Gear</quality>
 					<quality>Sapper</quality>
 					<quality>Sensor Upgrade</quality>
+					<quality>Snooper</quality>
 					<quality>Speed Reading</quality>
 					<quality>Strive For Perfection</quality>
 					<quality>Steely-Eyed Wheelman</quality>
@@ -3356,7 +3404,7 @@
 							<quality>Go Big or Go Home</quality>
 							<quality>Golden Screwdriver</quality>
 							<quality>Guts</quality>
-							<quality>Hello World</quality>
+							<quality>Hello World!</quality>
 							<quality>High Pain Tolerance</quality>
 							<quality>Home Ground</quality>
 							<quality>I C U</quality>
@@ -3374,13 +3422,16 @@
 							<quality>Overclocker</quality>
 							<quality>Perceptive</quality>
 							<quality>Photographic Memory</quality>
-							<quality>Pilot Origins</quality>
+							<quality>Pilot Origins (Rating 1)</quality>
+							<quality>Pilot Origins (Rating 2)</quality>
+							<quality>Pilot Origins (Rating 3)</quality>
 							<quality>Prime Data-Haven</quality>
 							<quality>Quick Healer</quality>
 							<quality>Redundancy</quality>
 							<quality>Restricted Gear</quality>
 							<quality>Sapper</quality>
 							<quality>Sensor Upgrade</quality>
+							<quality>Snooper</quality>
 							<quality>Speed Reading</quality>
 							<quality>Strive For Perfection</quality>
 							<quality>Steely-Eyed Wheelman</quality>
@@ -3428,9 +3479,9 @@
 					</qualityrestriction>
 					<qualities>
 						<positive>
-							<quality>HELLO WORLD</quality>
-							<quality>HELLO WORLD</quality>
-							<quality>HELLO WORLD</quality>
+							<quality>Hello World!</quality>
+							<quality>Hello World!</quality>
+							<quality>Hello World!</quality>
 							<quality>Lucky</quality>
 							<quality>Photographic Memory</quality>
 							<quality>Speed Reading</quality>
@@ -3511,7 +3562,7 @@
 							<quality>Go Big or Go Home</quality>
 							<quality>Golden Screwdriver</quality>
 							<quality>Guts</quality>
-							<quality>Hello World</quality>
+							<quality>Hello World!</quality>
 							<quality>High Pain Tolerance</quality>
 							<quality>Home Ground</quality>
 							<quality>I C U</quality>
@@ -3529,7 +3580,9 @@
 							<quality>Overclocker</quality>
 							<quality>Perceptive</quality>
 							<quality>Photographic Memory</quality>
-							<quality>Pilot Origins</quality>
+							<quality>Pilot Origins (Rating 1)</quality>
+							<quality>Pilot Origins (Rating 2)</quality>
+							<quality>Pilot Origins (Rating 3)</quality>
 							<quality>Prime Data-Haven</quality>
 							<quality>Quick Healer</quality>
 							<quality>Redundancy</quality>
@@ -3542,6 +3595,7 @@
 							<quality>Sense of Direction</quality>
 							<quality>Sharpshooter</quality>
 							<quality>Sensei</quality>
+							<quality>Snooper</quality>
 							<quality>Virtual Stability</quality>
 							<quality>Solid/Legendary Rep</quality>
 							<quality>Trustworthy</quality>
@@ -3665,7 +3719,7 @@
 							<quality>Go Big or Go Home</quality>
 							<quality>Golden Screwdriver</quality>
 							<quality>Guts</quality>
-							<quality>Hello World</quality>
+							<quality>Hello World!</quality>
 							<quality>High Pain Tolerance</quality>
 							<quality>Home Ground</quality>
 							<quality>I C U</quality>
@@ -3683,13 +3737,16 @@
 							<quality>Overclocker</quality>
 							<quality>Perceptive</quality>
 							<quality>Photographic Memory</quality>
-							<quality>Pilot Origins</quality>
+							<quality>Pilot Origins (Rating 1)</quality>
+							<quality>Pilot Origins (Rating 2)</quality>
+							<quality>Pilot Origins (Rating 3)</quality>
 							<quality>Prime Data-Haven</quality>
 							<quality>Quick Healer</quality>
 							<quality>Redundancy</quality>
 							<quality>Restricted Gear</quality>
 							<quality>Sapper</quality>
 							<quality>Sensor Upgrade</quality>
+							<quality>Snooper</quality>
 							<quality>Speed Reading</quality>
 							<quality>Strive For Perfection</quality>
 							<quality>Steely-Eyed Wheelman</quality>

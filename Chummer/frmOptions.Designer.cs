@@ -127,6 +127,7 @@
 			this.chkSingleDiceRoller = new System.Windows.Forms.CheckBox();
 			this.chkStartupFullscreen = new System.Windows.Forms.CheckBox();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
+			this.chkDontUseCyberlimbCalculation = new System.Windows.Forms.CheckBox();
 			this.chkPrintToFileFirst = new System.Windows.Forms.CheckBox();
 			this.cboEssenceDecimals = new System.Windows.Forms.ComboBox();
 			this.lblEssenceDecimals = new System.Windows.Forms.Label();
@@ -210,15 +211,14 @@
 			this.nudKarmaJoinGroup = new System.Windows.Forms.NumericUpDown();
 			this.lblKarmaJoinGroup = new System.Windows.Forms.Label();
 			this.tabOptionalRules = new System.Windows.Forms.TabPage();
+			this.chkDronemods = new System.Windows.Forms.CheckBox();
 			this.chkMissions = new System.Windows.Forms.CheckBox();
 			this.chkContactPoints = new System.Windows.Forms.CheckBox();
 			this.chkMayBuyQualities = new System.Windows.Forms.CheckBox();
 			this.chkExtendAnyDetectionSpell = new System.Windows.Forms.CheckBox();
-			this.chkBreakSkillGroupsInCreateMode = new System.Windows.Forms.CheckBox();
 			this.chkAlternateMatrixAttribute = new System.Windows.Forms.CheckBox();
 			this.chkAllowCustomTransgenics = new System.Windows.Forms.CheckBox();
 			this.chkAlternateComplexFormCost = new System.Windows.Forms.CheckBox();
-			this.chkUseCalculatedVehicleSensorRatings = new System.Windows.Forms.CheckBox();
 			this.chkArmorDegradation = new System.Windows.Forms.CheckBox();
 			this.chkArmorSuitCapacity = new System.Windows.Forms.CheckBox();
 			this.chkMaximumArmorModifications = new System.Windows.Forms.CheckBox();
@@ -230,6 +230,13 @@
 			this.chkCapSkillRating = new System.Windows.Forms.CheckBox();
 			this.chkNoSingleArmorEncumbrance = new System.Windows.Forms.CheckBox();
 			this.tabHouseRules = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.nudDroneArmorMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.chkDroneArmorMultiplier = new System.Windows.Forms.CheckBox();
+			this.chkUseTotalValueForFreeKnowledge = new System.Windows.Forms.CheckBox();
+			this.chkUseTotalValueForFreeContacts = new System.Windows.Forms.CheckBox();
+			this.chkUseCalculatedPublicAwareness = new System.Windows.Forms.CheckBox();
+			this.chkDontDoubleQualityRefunds = new System.Windows.Forms.CheckBox();
 			this.chkESSLossReducesMaximumOnly = new System.Windows.Forms.CheckBox();
 			this.chkAllowCyberwareESSDiscounts = new System.Windows.Forms.CheckBox();
 			this.chkExceedNegativeQualitiesLimit = new System.Windows.Forms.CheckBox();
@@ -244,8 +251,8 @@
 			this.chkFreeKarmaContacts = new System.Windows.Forms.CheckBox();
 			this.chkFreeKarmaKnowledge = new System.Windows.Forms.CheckBox();
 			this.chkAllowInitiation = new System.Windows.Forms.CheckBox();
-			this.chkUsePointsOnBrokenGroups = new System.Windows.Forms.CheckBox();
-			this.chkDontDoubleQualities = new System.Windows.Forms.CheckBox();
+			this.chkStrictSkillGroups = new System.Windows.Forms.CheckBox();
+			this.chkDontDoubleQualityPurchases = new System.Windows.Forms.CheckBox();
 			this.chkCyberlegMovement = new System.Windows.Forms.CheckBox();
 			this.chkIgnoreArt = new System.Windows.Forms.CheckBox();
 			this.cboSetting = new System.Windows.Forms.ComboBox();
@@ -308,6 +315,7 @@
 			this.tabOptionalRules.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudMetatypeCostsKarmaMultiplier)).BeginInit();
 			this.tabHouseRules.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDroneArmorMultiplier)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudKnowledgeMultiplier)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudContactMultiplier)).BeginInit();
 			this.SuspendLayout();
@@ -315,6 +323,7 @@
 			// cmdOK
 			// 
 			this.cmdOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.cmdOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.cmdOK.Location = new System.Drawing.Point(370, 626);
 			this.cmdOK.Name = "cmdOK";
 			this.cmdOK.Size = new System.Drawing.Size(75, 23);
@@ -849,7 +858,7 @@
 			// chkPrintSkillsWithZeroRating
 			// 
 			this.chkPrintSkillsWithZeroRating.AutoSize = true;
-			this.chkPrintSkillsWithZeroRating.Location = new System.Drawing.Point(10, 161);
+			this.chkPrintSkillsWithZeroRating.Location = new System.Drawing.Point(11, 200);
 			this.chkPrintSkillsWithZeroRating.Name = "chkPrintSkillsWithZeroRating";
 			this.chkPrintSkillsWithZeroRating.Size = new System.Drawing.Size(259, 17);
 			this.chkPrintSkillsWithZeroRating.TabIndex = 11;
@@ -883,7 +892,7 @@
 			// lblNuyenPerBP
 			// 
 			this.lblNuyenPerBP.AutoSize = true;
-			this.lblNuyenPerBP.Location = new System.Drawing.Point(7, 316);
+			this.lblNuyenPerBP.Location = new System.Drawing.Point(8, 355);
 			this.lblNuyenPerBP.Name = "lblNuyenPerBP";
 			this.lblNuyenPerBP.Size = new System.Drawing.Size(112, 13);
 			this.lblNuyenPerBP.TabIndex = 2;
@@ -893,7 +902,7 @@
 			// 
 			// nudNuyenPerBP
 			// 
-			this.nudNuyenPerBP.Location = new System.Drawing.Point(136, 314);
+			this.nudNuyenPerBP.Location = new System.Drawing.Point(137, 353);
 			this.nudNuyenPerBP.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -934,7 +943,7 @@
 			// chkPrintExpenses
 			// 
 			this.chkPrintExpenses.AutoSize = true;
-			this.chkPrintExpenses.Location = new System.Drawing.Point(10, 184);
+			this.chkPrintExpenses.Location = new System.Drawing.Point(11, 223);
 			this.chkPrintExpenses.Name = "chkPrintExpenses";
 			this.chkPrintExpenses.Size = new System.Drawing.Size(184, 17);
 			this.chkPrintExpenses.TabIndex = 12;
@@ -1295,6 +1304,7 @@
 			// tabPage2
 			// 
 			this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+			this.tabPage2.Controls.Add(this.chkDontUseCyberlimbCalculation);
 			this.tabPage2.Controls.Add(this.chkPrintToFileFirst);
 			this.tabPage2.Controls.Add(this.cboEssenceDecimals);
 			this.tabPage2.Controls.Add(this.lblEssenceDecimals);
@@ -1319,10 +1329,21 @@
 			this.tabPage2.Tag = "Tab_Options_Character";
 			this.tabPage2.Text = "Character and Printing";
 			// 
+			// chkDontUseCyberlimbCalculation
+			// 
+			this.chkDontUseCyberlimbCalculation.AutoSize = true;
+			this.chkDontUseCyberlimbCalculation.Location = new System.Drawing.Point(12, 36);
+			this.chkDontUseCyberlimbCalculation.Name = "chkDontUseCyberlimbCalculation";
+			this.chkDontUseCyberlimbCalculation.Size = new System.Drawing.Size(270, 17);
+			this.chkDontUseCyberlimbCalculation.TabIndex = 19;
+			this.chkDontUseCyberlimbCalculation.Tag = "Checkbox_Options_UseCyberlimbCalculation";
+			this.chkDontUseCyberlimbCalculation.Text = "Use Cyberlimbs for calculating augmented Attributes";
+			this.chkDontUseCyberlimbCalculation.UseVisualStyleBackColor = true;
+			// 
 			// chkPrintToFileFirst
 			// 
 			this.chkPrintToFileFirst.AutoSize = true;
-			this.chkPrintToFileFirst.Location = new System.Drawing.Point(10, 230);
+			this.chkPrintToFileFirst.Location = new System.Drawing.Point(11, 269);
 			this.chkPrintToFileFirst.Name = "chkPrintToFileFirst";
 			this.chkPrintToFileFirst.Size = new System.Drawing.Size(130, 17);
 			this.chkPrintToFileFirst.TabIndex = 18;
@@ -1334,7 +1355,7 @@
 			// 
 			this.cboEssenceDecimals.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cboEssenceDecimals.FormattingEnabled = true;
-			this.cboEssenceDecimals.Location = new System.Drawing.Point(244, 266);
+			this.cboEssenceDecimals.Location = new System.Drawing.Point(245, 305);
 			this.cboEssenceDecimals.Name = "cboEssenceDecimals";
 			this.cboEssenceDecimals.Size = new System.Drawing.Size(61, 21);
 			this.cboEssenceDecimals.TabIndex = 17;
@@ -1342,7 +1363,7 @@
 			// lblEssenceDecimals
 			// 
 			this.lblEssenceDecimals.AutoSize = true;
-			this.lblEssenceDecimals.Location = new System.Drawing.Point(8, 269);
+			this.lblEssenceDecimals.Location = new System.Drawing.Point(9, 308);
 			this.lblEssenceDecimals.Name = "lblEssenceDecimals";
 			this.lblEssenceDecimals.Size = new System.Drawing.Size(230, 13);
 			this.lblEssenceDecimals.TabIndex = 16;
@@ -1352,7 +1373,7 @@
 			// chkPrintNotes
 			// 
 			this.chkPrintNotes.AutoSize = true;
-			this.chkPrintNotes.Location = new System.Drawing.Point(10, 207);
+			this.chkPrintNotes.Location = new System.Drawing.Point(11, 246);
 			this.chkPrintNotes.Name = "chkPrintNotes";
 			this.chkPrintNotes.Size = new System.Drawing.Size(78, 17);
 			this.chkPrintNotes.TabIndex = 15;
@@ -1373,7 +1394,7 @@
 			// chkAllowSkillDiceRolling
 			// 
 			this.chkAllowSkillDiceRolling.AutoSize = true;
-			this.chkAllowSkillDiceRolling.Location = new System.Drawing.Point(10, 128);
+			this.chkAllowSkillDiceRolling.Location = new System.Drawing.Point(11, 167);
 			this.chkAllowSkillDiceRolling.Name = "chkAllowSkillDiceRolling";
 			this.chkAllowSkillDiceRolling.Size = new System.Drawing.Size(170, 17);
 			this.chkAllowSkillDiceRolling.TabIndex = 10;
@@ -1384,7 +1405,7 @@
 			// label36
 			// 
 			this.label36.AutoSize = true;
-			this.label36.Location = new System.Drawing.Point(7, 40);
+			this.label36.Location = new System.Drawing.Point(8, 79);
 			this.label36.Name = "label36";
 			this.label36.Size = new System.Drawing.Size(140, 13);
 			this.label36.TabIndex = 4;
@@ -1393,7 +1414,7 @@
 			// 
 			// nudBP
 			// 
-			this.nudBP.Location = new System.Drawing.Point(103, 65);
+			this.nudBP.Location = new System.Drawing.Point(104, 104);
 			this.nudBP.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -1412,7 +1433,7 @@
 			// 
 			this.cboBuildMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cboBuildMethod.FormattingEnabled = true;
-			this.cboBuildMethod.Location = new System.Drawing.Point(8, 65);
+			this.cboBuildMethod.Location = new System.Drawing.Point(9, 104);
 			this.cboBuildMethod.Name = "cboBuildMethod";
 			this.cboBuildMethod.Size = new System.Drawing.Size(89, 21);
 			this.cboBuildMethod.TabIndex = 5;
@@ -1421,7 +1442,7 @@
 			// lblMaxAvail
 			// 
 			this.lblMaxAvail.AutoSize = true;
-			this.lblMaxAvail.Location = new System.Drawing.Point(38, 95);
+			this.lblMaxAvail.Location = new System.Drawing.Point(39, 134);
 			this.lblMaxAvail.Name = "lblMaxAvail";
 			this.lblMaxAvail.Size = new System.Drawing.Size(59, 13);
 			this.lblMaxAvail.TabIndex = 7;
@@ -1430,7 +1451,7 @@
 			// 
 			// nudMaxAvail
 			// 
-			this.nudMaxAvail.Location = new System.Drawing.Point(103, 92);
+			this.nudMaxAvail.Location = new System.Drawing.Point(104, 131);
 			this.nudMaxAvail.Name = "nudMaxAvail";
 			this.nudMaxAvail.Size = new System.Drawing.Size(42, 20);
 			this.nudMaxAvail.TabIndex = 8;
@@ -2290,15 +2311,14 @@
 			// tabOptionalRules
 			// 
 			this.tabOptionalRules.BackColor = System.Drawing.SystemColors.Control;
+			this.tabOptionalRules.Controls.Add(this.chkDronemods);
 			this.tabOptionalRules.Controls.Add(this.chkMissions);
 			this.tabOptionalRules.Controls.Add(this.chkContactPoints);
 			this.tabOptionalRules.Controls.Add(this.chkMayBuyQualities);
 			this.tabOptionalRules.Controls.Add(this.chkExtendAnyDetectionSpell);
-			this.tabOptionalRules.Controls.Add(this.chkBreakSkillGroupsInCreateMode);
 			this.tabOptionalRules.Controls.Add(this.chkAlternateMatrixAttribute);
 			this.tabOptionalRules.Controls.Add(this.chkAllowCustomTransgenics);
 			this.tabOptionalRules.Controls.Add(this.chkAlternateComplexFormCost);
-			this.tabOptionalRules.Controls.Add(this.chkUseCalculatedVehicleSensorRatings);
 			this.tabOptionalRules.Controls.Add(this.chkArmorDegradation);
 			this.tabOptionalRules.Controls.Add(this.chkArmorSuitCapacity);
 			this.tabOptionalRules.Controls.Add(this.chkMaximumArmorModifications);
@@ -2317,10 +2337,21 @@
 			this.tabOptionalRules.Tag = "Tab_Options_OptionalRules";
 			this.tabOptionalRules.Text = "Optional Rules";
 			// 
+			// chkDronemods
+			// 
+			this.chkDronemods.AutoSize = true;
+			this.chkDronemods.Location = new System.Drawing.Point(8, 75);
+			this.chkDronemods.Name = "chkDronemods";
+			this.chkDronemods.Size = new System.Drawing.Size(206, 17);
+			this.chkDronemods.TabIndex = 34;
+			this.chkDronemods.Tag = "Checkbox_Options_Dronemods";
+			this.chkDronemods.Text = "Use Drone Modification rules (R5 122)";
+			this.chkDronemods.UseVisualStyleBackColor = true;
+			// 
 			// chkMissions
 			// 
 			this.chkMissions.AutoSize = true;
-			this.chkMissions.Location = new System.Drawing.Point(8, 75);
+			this.chkMissions.Location = new System.Drawing.Point(8, 52);
 			this.chkMissions.Name = "chkMissions";
 			this.chkMissions.Size = new System.Drawing.Size(197, 17);
 			this.chkMissions.TabIndex = 33;
@@ -2364,17 +2395,6 @@
 			this.chkExtendAnyDetectionSpell.UseVisualStyleBackColor = true;
 			this.chkExtendAnyDetectionSpell.Visible = false;
 			// 
-			// chkBreakSkillGroupsInCreateMode
-			// 
-			this.chkBreakSkillGroupsInCreateMode.AutoSize = true;
-			this.chkBreakSkillGroupsInCreateMode.Location = new System.Drawing.Point(8, 52);
-			this.chkBreakSkillGroupsInCreateMode.Name = "chkBreakSkillGroupsInCreateMode";
-			this.chkBreakSkillGroupsInCreateMode.Size = new System.Drawing.Size(339, 17);
-			this.chkBreakSkillGroupsInCreateMode.TabIndex = 29;
-			this.chkBreakSkillGroupsInCreateMode.Tag = "Checkbox_Options_BreakSkillGroupsInCreateMode";
-			this.chkBreakSkillGroupsInCreateMode.Text = "Allow Skill Groups to be broken during character creation (SR4 68)";
-			this.chkBreakSkillGroupsInCreateMode.UseVisualStyleBackColor = true;
-			// 
 			// chkAlternateMatrixAttribute
 			// 
 			this.chkAlternateMatrixAttribute.AutoSize = true;
@@ -2410,18 +2430,6 @@
 			this.chkAlternateComplexFormCost.Text = "Use alternate Complex Forms costs (UN 39)";
 			this.chkAlternateComplexFormCost.UseVisualStyleBackColor = true;
 			this.chkAlternateComplexFormCost.Visible = false;
-			// 
-			// chkUseCalculatedVehicleSensorRatings
-			// 
-			this.chkUseCalculatedVehicleSensorRatings.AutoSize = true;
-			this.chkUseCalculatedVehicleSensorRatings.Location = new System.Drawing.Point(366, 167);
-			this.chkUseCalculatedVehicleSensorRatings.Name = "chkUseCalculatedVehicleSensorRatings";
-			this.chkUseCalculatedVehicleSensorRatings.Size = new System.Drawing.Size(255, 17);
-			this.chkUseCalculatedVehicleSensorRatings.TabIndex = 11;
-			this.chkUseCalculatedVehicleSensorRatings.Tag = "Checkbox_Options_UseCalculatedVehicleSensorRatings";
-			this.chkUseCalculatedVehicleSensorRatings.Text = "Use calculated Vehicle Sensor Ratings (AR 105)";
-			this.chkUseCalculatedVehicleSensorRatings.UseVisualStyleBackColor = true;
-			this.chkUseCalculatedVehicleSensorRatings.Visible = false;
 			// 
 			// chkArmorDegradation
 			// 
@@ -2552,6 +2560,13 @@
 			// tabHouseRules
 			// 
 			this.tabHouseRules.BackColor = System.Drawing.SystemColors.Control;
+            this.tabHouseRules.Controls.Add(this.label4);
+            this.tabHouseRules.Controls.Add(this.nudDroneArmorMultiplier);
+            this.tabHouseRules.Controls.Add(this.chkDroneArmorMultiplier);
+			this.tabHouseRules.Controls.Add(this.chkUseTotalValueForFreeKnowledge);
+			this.tabHouseRules.Controls.Add(this.chkUseTotalValueForFreeContacts);
+			this.tabHouseRules.Controls.Add(this.chkUseCalculatedPublicAwareness);
+			this.tabHouseRules.Controls.Add(this.chkDontDoubleQualityRefunds);
 			this.tabHouseRules.Controls.Add(this.chkESSLossReducesMaximumOnly);
 			this.tabHouseRules.Controls.Add(this.chkAllowCyberwareESSDiscounts);
 			this.tabHouseRules.Controls.Add(this.chkExceedNegativeQualitiesLimit);
@@ -2566,8 +2581,8 @@
 			this.tabHouseRules.Controls.Add(this.chkFreeKarmaContacts);
 			this.tabHouseRules.Controls.Add(this.chkFreeKarmaKnowledge);
 			this.tabHouseRules.Controls.Add(this.chkAllowInitiation);
-			this.tabHouseRules.Controls.Add(this.chkUsePointsOnBrokenGroups);
-			this.tabHouseRules.Controls.Add(this.chkDontDoubleQualities);
+			this.tabHouseRules.Controls.Add(this.chkStrictSkillGroups);
+			this.tabHouseRules.Controls.Add(this.chkDontDoubleQualityPurchases);
 			this.tabHouseRules.Controls.Add(this.chkCyberlegMovement);
 			this.tabHouseRules.Controls.Add(this.chkIgnoreArt);
 			this.tabHouseRules.Controls.Add(this.chkKnucks);
@@ -2578,10 +2593,100 @@
 			this.tabHouseRules.Tag = "Tab_Options_HouseRules";
 			this.tabHouseRules.Text = "House Rules";
 			// 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(304, 234);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(12, 13);
+            this.label4.TabIndex = 27;
+            this.label4.Text = "x";
+            // 
+            // nudDroneArmorMultiplier
+            // 
+            this.nudDroneArmorMultiplier.Enabled = false;
+            this.nudDroneArmorMultiplier.Location = new System.Drawing.Point(322, 232);
+            this.nudDroneArmorMultiplier.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudDroneArmorMultiplier.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nudDroneArmorMultiplier.Name = "nudDroneArmorMultiplier";
+            this.nudDroneArmorMultiplier.Size = new System.Drawing.Size(36, 20);
+            this.nudDroneArmorMultiplier.TabIndex = 25;
+            this.nudDroneArmorMultiplier.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // chkDroneArmorMultiplier
+            // 
+            this.chkDroneArmorMultiplier.AutoSize = true;
+            this.chkDroneArmorMultiplier.Location = new System.Drawing.Point(8, 233);
+            this.chkDroneArmorMultiplier.Name = "chkDroneArmorMultiplier";
+            this.chkDroneArmorMultiplier.Size = new System.Drawing.Size(252, 17);
+            this.chkDroneArmorMultiplier.TabIndex = 24;
+            this.chkDroneArmorMultiplier.Tag = "Checkbox_Options_DroneArmorMultiplier";
+            this.chkDroneArmorMultiplier.Text = "Limit Drone Armor Enhance ment to Drone Body";
+            this.chkDroneArmorMultiplier.UseVisualStyleBackColor = true;
+            this.chkDroneArmorMultiplier.CheckedChanged += new System.EventHandler(this.chkDroneArmorMultiplier_CheckedChanged);
+            // 
+			// chkUseTotalValueForFreeKnowledge
+			// 
+			this.chkUseTotalValueForFreeKnowledge.AutoSize = true;
+			this.chkUseTotalValueForFreeKnowledge.Location = new System.Drawing.Point(364, 95);
+			this.chkUseTotalValueForFreeKnowledge.Name = "chkUseTotalValueForFreeKnowledge";
+			this.chkUseTotalValueForFreeKnowledge.Size = new System.Drawing.Size(269, 17);
+			this.chkUseTotalValueForFreeKnowledge.TabIndex = 23;
+			this.chkUseTotalValueForFreeKnowledge.Tag = "Checkbox_Options_UseTotalValueForFreeKnowledge";
+			this.chkUseTotalValueForFreeKnowledge.Text = "Free Contacts use the augmented LOG+INT values";
+			this.chkUseTotalValueForFreeKnowledge.UseVisualStyleBackColor = true;
+			// 
+			// chkUseTotalValueForFreeContacts
+			// 
+			this.chkUseTotalValueForFreeContacts.AutoSize = true;
+			this.chkUseTotalValueForFreeContacts.Location = new System.Drawing.Point(366, 26);
+			this.chkUseTotalValueForFreeContacts.Name = "chkUseTotalValueForFreeContacts";
+			this.chkUseTotalValueForFreeContacts.Size = new System.Drawing.Size(261, 17);
+			this.chkUseTotalValueForFreeContacts.TabIndex = 22;
+			this.chkUseTotalValueForFreeContacts.Tag = "Checkbox_Options_UseTotalValueForFreeContacts";
+			this.chkUseTotalValueForFreeContacts.Text = "Free Contacts use the augmented Charisma value";
+			this.chkUseTotalValueForFreeContacts.UseVisualStyleBackColor = true;
+			// 
+			// chkUseCalculatedPublicAwareness
+			// 
+			this.chkUseCalculatedPublicAwareness.AutoSize = true;
+			this.chkUseCalculatedPublicAwareness.Location = new System.Drawing.Point(8, 210);
+			this.chkUseCalculatedPublicAwareness.Name = "chkUseCalculatedPublicAwareness";
+			this.chkUseCalculatedPublicAwareness.Size = new System.Drawing.Size(289, 17);
+			this.chkUseCalculatedPublicAwareness.TabIndex = 21;
+			this.chkUseCalculatedPublicAwareness.Tag = "Checkbox_Options_UseCalculatedPublicAwareness";
+			this.chkUseCalculatedPublicAwareness.Text = "Public Awareness should be (Street Cred + Notoriety /3)";
+			this.chkUseCalculatedPublicAwareness.UseVisualStyleBackColor = true;
+			// 
+			// chkDontDoubleQualityRefunds
+			// 
+			this.chkDontDoubleQualityRefunds.AutoSize = true;
+			this.chkDontDoubleQualityRefunds.Location = new System.Drawing.Point(8, 95);
+			this.chkDontDoubleQualityRefunds.Name = "chkDontDoubleQualityRefunds";
+			this.chkDontDoubleQualityRefunds.Size = new System.Drawing.Size(350, 17);
+			this.chkDontDoubleQualityRefunds.TabIndex = 20;
+			this.chkDontDoubleQualityRefunds.Tag = "Checkbox_Options_DontDoubleNegativeQualityRefunds";
+			this.chkDontDoubleQualityRefunds.Text = "Don\'t double the cost of refunding Negative Qualities in Career Mode";
+			this.tipTooltip.SetToolTip(this.chkDontDoubleQualityRefunds, "Allows characters in Career mode to remove Negative Qualities and buy off Negativ" +
+        "e at their normal price instead of doubling them.");
+			this.chkDontDoubleQualityRefunds.UseVisualStyleBackColor = true;
+			// 
 			// chkESSLossReducesMaximumOnly
 			// 
 			this.chkESSLossReducesMaximumOnly.AutoSize = true;
-			this.chkESSLossReducesMaximumOnly.Location = new System.Drawing.Point(8, 164);
+			this.chkESSLossReducesMaximumOnly.Location = new System.Drawing.Point(8, 187);
 			this.chkESSLossReducesMaximumOnly.Name = "chkESSLossReducesMaximumOnly";
 			this.chkESSLossReducesMaximumOnly.Size = new System.Drawing.Size(251, 17);
 			this.chkESSLossReducesMaximumOnly.TabIndex = 19;
@@ -2592,7 +2697,7 @@
 			// chkAllowCyberwareESSDiscounts
 			// 
 			this.chkAllowCyberwareESSDiscounts.AutoSize = true;
-			this.chkAllowCyberwareESSDiscounts.Location = new System.Drawing.Point(8, 141);
+			this.chkAllowCyberwareESSDiscounts.Location = new System.Drawing.Point(8, 164);
 			this.chkAllowCyberwareESSDiscounts.Name = "chkAllowCyberwareESSDiscounts";
 			this.chkAllowCyberwareESSDiscounts.Size = new System.Drawing.Size(279, 17);
 			this.chkAllowCyberwareESSDiscounts.TabIndex = 18;
@@ -2605,7 +2710,7 @@
 			// 
 			this.chkExceedNegativeQualitiesLimit.AutoSize = true;
 			this.chkExceedNegativeQualitiesLimit.Enabled = false;
-			this.chkExceedNegativeQualitiesLimit.Location = new System.Drawing.Point(384, 141);
+			this.chkExceedNegativeQualitiesLimit.Location = new System.Drawing.Point(384, 187);
 			this.chkExceedNegativeQualitiesLimit.Name = "chkExceedNegativeQualitiesLimit";
 			this.chkExceedNegativeQualitiesLimit.Size = new System.Drawing.Size(308, 17);
 			this.chkExceedNegativeQualitiesLimit.TabIndex = 17;
@@ -2616,7 +2721,7 @@
 			// chkExceedNegativeQualities
 			// 
 			this.chkExceedNegativeQualities.AutoSize = true;
-			this.chkExceedNegativeQualities.Location = new System.Drawing.Point(366, 118);
+			this.chkExceedNegativeQualities.Location = new System.Drawing.Point(366, 164);
 			this.chkExceedNegativeQualities.Name = "chkExceedNegativeQualities";
 			this.chkExceedNegativeQualities.Size = new System.Drawing.Size(278, 17);
 			this.chkExceedNegativeQualities.TabIndex = 16;
@@ -2628,7 +2733,7 @@
 			// chkExceedPositiveQualities
 			// 
 			this.chkExceedPositiveQualities.AutoSize = true;
-			this.chkExceedPositiveQualities.Location = new System.Drawing.Point(366, 95);
+			this.chkExceedPositiveQualities.Location = new System.Drawing.Point(366, 141);
 			this.chkExceedPositiveQualities.Name = "chkExceedPositiveQualities";
 			this.chkExceedPositiveQualities.Size = new System.Drawing.Size(272, 17);
 			this.chkExceedPositiveQualities.TabIndex = 15;
@@ -2639,7 +2744,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(594, 50);
+			this.label3.Location = new System.Drawing.Point(594, 73);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(12, 13);
 			this.label3.TabIndex = 13;
@@ -2648,7 +2753,7 @@
 			// nudKnowledgeMultiplier
 			// 
 			this.nudKnowledgeMultiplier.Enabled = false;
-			this.nudKnowledgeMultiplier.Location = new System.Drawing.Point(612, 46);
+			this.nudKnowledgeMultiplier.Location = new System.Drawing.Point(612, 69);
 			this.nudKnowledgeMultiplier.Maximum = new decimal(new int[] {
             10,
             0,
@@ -2671,7 +2776,7 @@
 			// chkKnowledgeMultiplier
 			// 
 			this.chkKnowledgeMultiplier.AutoSize = true;
-			this.chkKnowledgeMultiplier.Location = new System.Drawing.Point(366, 49);
+			this.chkKnowledgeMultiplier.Location = new System.Drawing.Point(366, 72);
 			this.chkKnowledgeMultiplier.Name = "chkKnowledgeMultiplier";
 			this.chkKnowledgeMultiplier.Size = new System.Drawing.Size(231, 17);
 			this.chkKnowledgeMultiplier.TabIndex = 12;
@@ -2727,7 +2832,7 @@
 			// chkFreeKarmaContacts
 			// 
 			this.chkFreeKarmaContacts.AutoSize = true;
-			this.chkFreeKarmaContacts.Location = new System.Drawing.Point(366, 26);
+			this.chkFreeKarmaContacts.Location = new System.Drawing.Point(366, 49);
 			this.chkFreeKarmaContacts.Name = "chkFreeKarmaContacts";
 			this.chkFreeKarmaContacts.Size = new System.Drawing.Size(234, 17);
 			this.chkFreeKarmaContacts.TabIndex = 0;
@@ -2738,7 +2843,7 @@
 			// chkFreeKarmaKnowledge
 			// 
 			this.chkFreeKarmaKnowledge.AutoSize = true;
-			this.chkFreeKarmaKnowledge.Location = new System.Drawing.Point(366, 72);
+			this.chkFreeKarmaKnowledge.Location = new System.Drawing.Point(366, 118);
 			this.chkFreeKarmaKnowledge.Name = "chkFreeKarmaKnowledge";
 			this.chkFreeKarmaKnowledge.Size = new System.Drawing.Size(245, 17);
 			this.chkFreeKarmaKnowledge.TabIndex = 4;
@@ -2749,7 +2854,7 @@
 			// chkAllowInitiation
 			// 
 			this.chkAllowInitiation.AutoSize = true;
-			this.chkAllowInitiation.Location = new System.Drawing.Point(8, 118);
+			this.chkAllowInitiation.Location = new System.Drawing.Point(8, 141);
 			this.chkAllowInitiation.Name = "chkAllowInitiation";
 			this.chkAllowInitiation.Size = new System.Drawing.Size(227, 17);
 			this.chkAllowInitiation.TabIndex = 7;
@@ -2758,30 +2863,30 @@
 			this.tipTooltip.SetToolTip(this.chkAllowInitiation, "Allows Initiation/Submersion using Karma during Create mode.");
 			this.chkAllowInitiation.UseVisualStyleBackColor = true;
 			// 
-			// chkUsePointsOnBrokenGroups
+			// chkStrictSkillGroups
 			// 
-			this.chkUsePointsOnBrokenGroups.AutoSize = true;
-			this.chkUsePointsOnBrokenGroups.Location = new System.Drawing.Point(8, 95);
-			this.chkUsePointsOnBrokenGroups.Name = "chkUsePointsOnBrokenGroups";
-			this.chkUsePointsOnBrokenGroups.Size = new System.Drawing.Size(185, 17);
-			this.chkUsePointsOnBrokenGroups.TabIndex = 6;
-			this.chkUsePointsOnBrokenGroups.Tag = "Checkbox_Options_PointsOnBrokenGroups";
-			this.chkUsePointsOnBrokenGroups.Text = "Use Skill Points on broken groups";
-			this.tipTooltip.SetToolTip(this.chkUsePointsOnBrokenGroups, "Allows Skill Points to be spent on skills belonging to a broken skill group.");
-			this.chkUsePointsOnBrokenGroups.UseVisualStyleBackColor = true;
+			this.chkStrictSkillGroups.AutoSize = true;
+			this.chkStrictSkillGroups.Location = new System.Drawing.Point(8, 118);
+			this.chkStrictSkillGroups.Name = "chkStrictSkillGroups";
+			this.chkStrictSkillGroups.Size = new System.Drawing.Size(304, 17);
+			this.chkStrictSkillGroups.TabIndex = 6;
+			this.chkStrictSkillGroups.Tag = "Checkbox_Options_StrictSkillGroups";
+			this.chkStrictSkillGroups.Text = "Strict interprentation of breaking skill groups in create mode";
+			this.tipTooltip.SetToolTip(this.chkStrictSkillGroups, "Allows Skill Points to be spent on skills belonging to a broken skill group.");
+			this.chkStrictSkillGroups.UseVisualStyleBackColor = true;
 			// 
-			// chkDontDoubleQualities
+			// chkDontDoubleQualityPurchases
 			// 
-			this.chkDontDoubleQualities.AutoSize = true;
-			this.chkDontDoubleQualities.Location = new System.Drawing.Point(8, 72);
-			this.chkDontDoubleQualities.Name = "chkDontDoubleQualities";
-			this.chkDontDoubleQualities.Size = new System.Drawing.Size(257, 17);
-			this.chkDontDoubleQualities.TabIndex = 5;
-			this.chkDontDoubleQualities.Tag = "Checkbox_Options_DontDoubleQualities";
-			this.chkDontDoubleQualities.Text = "Don\'t double the cost of Qualities in Career Mode";
-			this.tipTooltip.SetToolTip(this.chkDontDoubleQualities, "Allows characters in Career mode to purchase Positive Qualities and buy off Negat" +
+			this.chkDontDoubleQualityPurchases.AutoSize = true;
+			this.chkDontDoubleQualityPurchases.Location = new System.Drawing.Point(8, 72);
+			this.chkDontDoubleQualityPurchases.Name = "chkDontDoubleQualityPurchases";
+			this.chkDontDoubleQualityPurchases.Size = new System.Drawing.Size(352, 17);
+			this.chkDontDoubleQualityPurchases.TabIndex = 5;
+			this.chkDontDoubleQualityPurchases.Tag = "Checkbox_Options_DontDoubleQualityPurchases";
+			this.chkDontDoubleQualityPurchases.Text = "Don\'t double the cost of purchasing Positive Qualities in Career Mode";
+			this.tipTooltip.SetToolTip(this.chkDontDoubleQualityPurchases, "Allows characters in Career mode to purchase Positive Qualities and buy off Negat" +
         "ive at their normal price instead of doubling them.");
-			this.chkDontDoubleQualities.UseVisualStyleBackColor = true;
+			this.chkDontDoubleQualityPurchases.UseVisualStyleBackColor = true;
 			// 
 			// chkCyberlegMovement
 			// 
@@ -2858,7 +2963,6 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(815, 661);
-			this.ControlBox = false;
 			this.Controls.Add(this.txtSettingName);
 			this.Controls.Add(this.lblSettingName);
 			this.Controls.Add(this.cboSetting);
@@ -2866,9 +2970,12 @@
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.cmdOK);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(16, 667);
 			this.Name = "frmOptions";
 			this.ShowInTaskbar = false;
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Tag = "Title_Options";
 			this.Text = "Options";
@@ -2935,6 +3042,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.nudMetatypeCostsKarmaMultiplier)).EndInit();
 			this.tabHouseRules.ResumeLayout(false);
 			this.tabHouseRules.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDroneArmorMultiplier)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudKnowledgeMultiplier)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.nudContactMultiplier)).EndInit();
 			this.ResumeLayout(false);
@@ -3050,7 +3158,6 @@
 		private System.Windows.Forms.CheckBox chkAutomaticRegistration;
         private System.Windows.Forms.CheckBox chkAutomaticCopyProtection;
 		private System.Windows.Forms.CheckBox chkStartupFullscreen;
-        private System.Windows.Forms.CheckBox chkUseCalculatedVehicleSensorRatings;
 		private System.Windows.Forms.CheckBox chkEnforceCapacity;
 		private System.Windows.Forms.CheckBox chkRestrictRecoil;
 		private System.Windows.Forms.Label lblKarmaComplexFormSkillsoftExtra;
@@ -3132,7 +3239,6 @@
 		private System.Windows.Forms.Label lblPDFLocation;
 		private System.Windows.Forms.Button cmdPDFTest;
 		private System.Windows.Forms.CheckBox chkDatesIncludeTime;
-		private System.Windows.Forms.CheckBox chkBreakSkillGroupsInCreateMode;
 		private System.Windows.Forms.CheckBox chkExtendAnyDetectionSpell;
 		private System.Windows.Forms.CheckBox chkPrintToFileFirst;
 		private System.Windows.Forms.CheckBox chkLocalisedUpdatesOnly;
@@ -3143,8 +3249,8 @@
         private System.Windows.Forms.CheckBox chkUseLogging;
         private System.Windows.Forms.CheckBox chkIgnoreArt;
         private System.Windows.Forms.CheckBox chkCyberlegMovement;
-        private System.Windows.Forms.CheckBox chkDontDoubleQualities;
-        private System.Windows.Forms.CheckBox chkUsePointsOnBrokenGroups;
+        private System.Windows.Forms.CheckBox chkDontDoubleQualityPurchases;
+        private System.Windows.Forms.CheckBox chkStrictSkillGroups;
         private System.Windows.Forms.ToolTip tipTooltip;
         private System.Windows.Forms.CheckBox chkAllowInitiation;
         private System.Windows.Forms.CheckBox chkFreeKarmaContacts;
@@ -3168,5 +3274,14 @@
 		private System.Windows.Forms.CheckBox chkESSLossReducesMaximumOnly;
 		private System.Windows.Forms.TabPage tabPage3;
 		private System.Windows.Forms.Button cmdUploadPastebin;
-	}
+		private System.Windows.Forms.CheckBox chkDontDoubleQualityRefunds;
+		private System.Windows.Forms.CheckBox chkUseCalculatedPublicAwareness;
+		private System.Windows.Forms.CheckBox chkDronemods;
+		private System.Windows.Forms.CheckBox chkUseTotalValueForFreeContacts;
+		private System.Windows.Forms.CheckBox chkUseTotalValueForFreeKnowledge;
+        private System.Windows.Forms.CheckBox chkDontUseCyberlimbCalculation;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown nudDroneArmorMultiplier;
+        private System.Windows.Forms.CheckBox chkDroneArmorMultiplier;
+    }
 }

@@ -1,9 +1,28 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+ using Chummer.Backend.Equipment;
 
 namespace Chummer
 {
@@ -13,10 +32,12 @@ namespace Chummer
 		private int _intMarkup = 0;
 
 		private bool _blnAddAgain = false;
-		private static string _strSelectCategory = "";
+	    private bool _blnBlackMarketDiscount = false;
+		private string _strLimitToCategories = "";
+        private static string _strSelectCategory = "";
 		private readonly Character _objCharacter;
-
-		private XmlDocument _objXmlDocument = new XmlDocument();
+	    private XmlNodeList objXmlCategoryList;
+        private XmlDocument _objXmlDocument = new XmlDocument();
 
 		private List<ListItem> _lstCategory = new List<ListItem>();
 
@@ -44,22 +65,55 @@ namespace Chummer
         	// Load the Weapon information.
 			_objXmlDocument = XmlManager.Instance.Load("weapons.xml");
 
-            // Populate the Weapon Category list.
-			XmlNodeList objXmlCategoryList = _objXmlDocument.SelectNodes("/chummer/categories/category");
-			foreach (XmlNode objXmlCategory in objXmlCategoryList)
+			// Populate the Weapon Category list.
+			if (!string.IsNullOrEmpty(_strLimitToCategories))
 			{
-				ListItem objItem = new ListItem();
-				objItem.Value = objXmlCategory.InnerText;
-				if (objXmlCategory.Attributes != null)
+				string[] strValues = _strLimitToCategories.Split(',');
+				// Populate the Category list.
+				XmlNodeList objXmlNodeList = _objXmlDocument.SelectNodes("/chummer/categories/category");
+				foreach (XmlNode objXmlCategory in objXmlNodeList)
 				{
-					if (objXmlCategory.Attributes["translate"] != null)
-						objItem.Name = objXmlCategory.Attributes["translate"].InnerText;
-					else
-						objItem.Name = objXmlCategory.InnerText;
+					foreach (string strCategory in strValues)
+					{
+						if (strCategory == objXmlCategory.InnerText)
+						{
+							ListItem objItem = new ListItem();
+							objItem.Value = objXmlCategory.InnerText;
+							if (objXmlCategory.Attributes != null)
+							{
+								if (objXmlCategory.Attributes["translate"] != null)
+									objItem.Name = objXmlCategory.Attributes["translate"].InnerText;
+								else
+									objItem.Name = objXmlCategory.InnerText;
+							}
+							else
+							{
+								objItem.Name = objXmlCategory.InnerXml;
+							}
+							_lstCategory.Add(objItem);
+						}
+					}
 				}
-				else
-					objItem.Name = objXmlCategory.InnerXml;
-				_lstCategory.Add(objItem);
+			}
+			else
+			{
+				objXmlCategoryList = _objXmlDocument.SelectNodes("/chummer/categories/category");
+
+				foreach (XmlNode objXmlCategory in objXmlCategoryList)
+				{
+					ListItem objItem = new ListItem();
+					objItem.Value = objXmlCategory.InnerText;
+					if (objXmlCategory.Attributes != null)
+					{
+						if (objXmlCategory.Attributes["translate"] != null)
+							objItem.Name = objXmlCategory.Attributes["translate"].InnerText;
+						else
+							objItem.Name = objXmlCategory.InnerText;
+					}
+					else
+						objItem.Name = objXmlCategory.InnerXml;
+					_lstCategory.Add(objItem);
+				}
 			}
 			cboCategory.ValueMember = "Value";
 			cboCategory.DisplayMember = "Name";
@@ -129,7 +183,7 @@ namespace Chummer
 
 			Weapon objWeapon = new Weapon(_objCharacter);
 			TreeNode objNode = new TreeNode();
-			objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null, null);
+			objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null);
 
             lblWeaponReach.Text = objWeapon.TotalReach.ToString();
 			lblWeaponDamage.Text = objWeapon.CalculatedDamage();
@@ -148,6 +202,10 @@ namespace Chummer
             }
             catch { }
 			dblCost *= 1 + (Convert.ToDouble(nudMarkup.Value, GlobalOptions.Instance.CultureInfo) / 100.0);
+            if (chkBlackMarketDiscount.Checked)
+            {
+                dblCost = dblCost*0.90;
+            }
 			lblWeaponCost.Text = String.Format("{0:###,###,##0¥}", dblCost);
 			try
 			{
@@ -332,6 +390,17 @@ namespace Chummer
 		}
 
 		/// <summary>
+		/// Whether or not the selected Vehicle is used.
+		/// </summary>
+		public bool BlackMarketDiscount
+		{
+			get
+			{
+				return _blnBlackMarketDiscount;
+			}
+		}
+
+		/// <summary>
 		/// Name of Weapon that was selected in the dialogue.
 		/// </summary>
 		public string SelectedWeapon
@@ -361,6 +430,17 @@ namespace Chummer
 			get
 			{
 				return _intMarkup;
+			}
+		}
+
+		/// <summary>
+		/// Only the provided Weapon Categories should be shown in the list.
+		/// </summary>
+		public string LimitToCategories
+		{
+			set
+			{
+				_strLimitToCategories = value;
 			}
 		}
 		#endregion
@@ -400,6 +480,7 @@ namespace Chummer
 				_strSelectCategory = objNode["category"].InnerText;
 				_strSelectedWeapon = objNode["name"].InnerText;
 				_intMarkup = Convert.ToInt32(nudMarkup.Value);
+				_blnBlackMarketDiscount = chkBlackMarketDiscount.Checked;
 
 				this.DialogResult = DialogResult.OK;
 			}
@@ -440,7 +521,7 @@ namespace Chummer
 
 			lblSearchLabel.Left = txtSearch.Left - 6 - lblSearchLabel.Width;
 		}
-		#endregion
+		
 
         private void chkBrowse_CheckedChanged(object sender, EventArgs e)
         {
@@ -533,7 +614,7 @@ namespace Chummer
                 {
                     TreeNode objNode = new TreeNode();
                     Weapon objWeapon = new Weapon(_objCharacter);
-                    objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null, null);
+                    objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null);
 
                     string strWeaponName = objWeapon.Name;
                     string strDice = objWeapon.DicePool;
@@ -626,7 +707,7 @@ namespace Chummer
                 {
                     TreeNode objNode = new TreeNode();
                     Weapon objWeapon = new Weapon(_objCharacter);
-                    objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null, null);
+                    objWeapon.Create(objXmlWeapon, _objCharacter, objNode, null, null);
 
                     string strWeaponName = objWeapon.Name;
                     string strDice = objWeapon.DicePool;
@@ -711,13 +792,12 @@ namespace Chummer
             if (lstWeapon.Text != "" || dgvWeapons.Visible)
                 AcceptForm();
         }
-
-
-
+		
 		private void lblSource_Click(object sender, EventArgs e)
         {
             CommonFunctions objCommon = new CommonFunctions(_objCharacter);
             objCommon.OpenPDF(lblSource.Text);
         }
-    }
+		#endregion
+	}
 }

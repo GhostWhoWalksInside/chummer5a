@@ -1,9 +1,29 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
+ using Chummer.Backend.Equipment;
+ using Chummer.Skills;
 
 namespace Chummer
 {
@@ -126,7 +146,7 @@ namespace Chummer
 			{
 				intBP = Convert.ToInt32(objXmlQuality["karma"].InnerText);
 			}
-            if (_objCharacter.Created && !_objCharacter.Options.DontDoubleQualities)
+            if (_objCharacter.Created && !_objCharacter.Options.DontDoubleQualityPurchases)
             {
                 intBP *= 2;
             }
@@ -178,10 +198,19 @@ namespace Chummer
 
 		private void chkMetagenetic_CheckedChanged(object sender, EventArgs e)
 		{
-			BuildQualityList();
-		}
+		    if (chkMetagenetic.Checked)
+		        chkNotMetagenetic.Checked = false;
+            BuildQualityList();
+        }
 
-		private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void chkNotMetagenetic_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkNotMetagenetic.Checked)
+                chkMetagenetic.Checked = false;
+            BuildQualityList();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
 		{
 			BuildQualityList();
 		}
@@ -305,8 +334,11 @@ namespace Chummer
 				if (chkMetagenetic.Checked)
 				{
 					strSearch += " and (required/oneof[contains(., 'Changeling (Class I SURGE)')] or metagenetic = 'yes')";
-				}
-				strSearch += "]";
+				} else if (chkNotMetagenetic.Checked)
+                {
+                    strSearch += " and not (metagenetic = 'yes')";
+                }
+                strSearch += "]";
 
 				XmlNodeList objXmlQualityList = _objXmlDocument.SelectNodes(strSearch);
 				foreach (XmlNode objXmlQuality in objXmlQualityList)
@@ -347,7 +379,7 @@ namespace Chummer
 				{
 					strXPath += " and (required/oneof[contains(., 'Changeling (Class I SURGE)')] or metagenetic = 'yes')";
 				}
-				else if (cboCategory.SelectedValue.ToString() == "Negative" || _objCharacter.MetageneticLimit > 0)
+                else if (!chkNotMetagenetic.Checked && (cboCategory.SelectedValue.ToString() == "Negative" || _objCharacter.MetageneticLimit > 0))
 				{
 					//Load everything, including metagenetic qualities.
 				}
@@ -747,7 +779,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "skill")
 						{
 							// Check if the character has the required Skill.
-							foreach (Skill objSkill in _objCharacter.Skills)
+							foreach (Skill objSkill in _objCharacter.SkillsSection.Skills)
 							{
 								if (objSkill.Name == objXmlRequired["name"].InnerText)
 								{
@@ -762,7 +794,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "attribute")
 						{
 							// Check to see if an Attribute meets a requirement.
-							Attribute objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
+							CharacterAttrib objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
 
 							if (objXmlRequired["total"] != null)
 							{
@@ -800,7 +832,7 @@ namespace Chummer
 							string[] strGroups = objXmlRequired["skillgroups"].InnerText.Split('+');
 							for (int i = 0; i <= strGroups.Length - 1; i++)
 							{
-								foreach (SkillGroup objGroup in _objCharacter.SkillGroups)
+								foreach (SkillGroup objGroup in _objCharacter.SkillsSection.SkillGroups)
 								{
 									if (objGroup.Name == strGroups[i])
 									{
@@ -1052,7 +1084,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "skill")
 						{
 							// Check if the character has the required Skill.
-							foreach (Skill objSkill in _objCharacter.Skills)
+							foreach (Skill objSkill in _objCharacter.SkillsSection.Skills)
 							{
 								if (objSkill.Name == objXmlRequired["name"].InnerText)
 								{
@@ -1067,7 +1099,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "attribute")
 						{
 							// Check to see if an Attribute meets a requirement.
-							Attribute objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
+							CharacterAttrib objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
 
 							if (objXmlRequired["total"] != null)
 							{
@@ -1105,7 +1137,7 @@ namespace Chummer
 							string[] strGroups = objXmlRequired["skillgroups"].InnerText.Split('+');
 							for (int i = 0; i <= strGroups.Length - 1; i++)
 							{
-								foreach (SkillGroup objGroup in _objCharacter.SkillGroups)
+								foreach (SkillGroup objGroup in _objCharacter.SkillsSection.SkillGroups)
 								{
 									if (objGroup.Name == strGroups[i])
 									{
@@ -1282,5 +1314,5 @@ namespace Chummer
             CommonFunctions objCommon = new CommonFunctions(_objCharacter);
             objCommon.OpenPDF(lblSource.Text);
         }
-	}
+    }
 }

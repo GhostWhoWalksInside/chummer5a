@@ -1,7 +1,26 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml;
+﻿using Chummer.Skills;
 
 namespace Chummer
 {
@@ -104,9 +123,9 @@ namespace Chummer
 				}
 
 				// Add in any Exotic Skills the character has.
-				foreach (Skill objSkill in _objCharacter.Skills)
+				foreach (Skill objSkill in _objCharacter.SkillsSection.Skills)
 				{
-					if (objSkill.ExoticSkill)
+					if (objSkill.IsExoticSkill)
 					{
 						bool blnAddSkill = true;
 						if (_strForceSkill != "")
@@ -143,9 +162,9 @@ namespace Chummer
 			else
 			{
 				// Instead of showing all available Active Skills, show a list of Knowledge Skills that the character currently has.
-				foreach (Skill objKnow in _objCharacter.Skills)
+				foreach (Skill objKnow in _objCharacter.SkillsSection.Skills)
 				{
-					if (objKnow.KnowledgeSkill)
+					if (objKnow.IsKnowledgeSkill)
 					{
 						ListItem objSkill = new ListItem();
 						objSkill.Value = objKnow.Name;

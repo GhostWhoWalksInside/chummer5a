@@ -1,9 +1,29 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.XPath;
+ using Chummer.Backend.Equipment;
+ using Chummer.Skills;
 
 namespace Chummer
 {
@@ -34,6 +54,8 @@ namespace Chummer
 		private string _strNode = "cyberware";
 		private bool _blnAddAgain = false;
 		private bool _blnAllowModularPlugins = false;
+        private bool _blnShowOnlyLimbs = false;
+	    private bool _blnBlackMarketDiscount = false;
 		private static string _strSelectCategory = "";
 		private static string _strSelectedGrade = "";
 
@@ -42,6 +64,7 @@ namespace Chummer
 
 		private List<ListItem> _lstCategory = new List<ListItem>();
 		private List<ListItem> _lstGrade = new List<ListItem>();
+		
 
 		public enum Mode
 		{
@@ -93,6 +116,9 @@ namespace Chummer
 
 				if (objXmlCategory.Attributes["show"] != null)
 					blnAddItem = _blnAllowModularPlugins;
+
+			    if (_blnShowOnlyLimbs)
+			        blnAddItem = objXmlCategory.InnerText == "Cyberlimb";
 
 				if (blnAddItem)
 				{
@@ -259,8 +285,19 @@ namespace Chummer
 			if (objXmlCyberware.InnerXml.Contains("<rating>"))
 			{
 				nudRating.Enabled = true;
-				nudRating.Maximum = Convert.ToInt32(objXmlCyberware["rating"].InnerText);
-				if (objXmlCyberware["minrating"] != null)
+			    if (objXmlCyberware["rating"].InnerText == "MaximumSTR")
+			    {
+                    nudRating.Maximum = _objCharacter.STR.TotalMaximum;
+                } else if (objXmlCyberware["rating"].InnerText == "MaximumAGI")
+			    {
+			        nudRating.Maximum = _objCharacter.AGI.TotalMaximum;
+
+			    }
+			    else
+			    {
+			        nudRating.Maximum = Convert.ToInt32(objXmlCyberware["rating"].InnerText);
+			    }
+			    if (objXmlCyberware["minrating"] != null)
 					nudRating.Minimum = Convert.ToInt32(objXmlCyberware["minrating"].InnerText);
 				else
 					nudRating.Minimum = 1;
@@ -685,6 +722,17 @@ namespace Chummer
 		}
 
 		/// <summary>
+		/// Whether or not the selected Vehicle is used.
+		/// </summary>
+		public bool BlackMarketDiscount
+		{
+			get
+			{
+				return _blnBlackMarketDiscount;
+			}
+		}
+
+		/// <summary>
 		/// Whether or not the Bioware should be forced into the Genetech: Transgenics category.
 		/// </summary>
 		public bool ForceTransgenic
@@ -698,10 +746,21 @@ namespace Chummer
 					return false;
 			}
 		}
-		#endregion
 
-		#region Methods
-		/// <summary>
+        /// <summary>
+		/// Whether or not only Cyberlimb should be shown
+		/// </summary>
+		public bool ShowOnlyLimbs
+        {
+            set
+            {
+                _blnShowOnlyLimbs = value;
+            }
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
         /// Update the Cyberware's information based on the Cyberware selected and current Rating.
         /// </summary>
         private void UpdateCyberwareInfo()
@@ -881,12 +940,21 @@ namespace Chummer
 					}
 				}
 
+				if (chkBlackMarketDiscount.Checked)
+				{
+					double dblDiscount = 0;
+					dblDiscount = intItemCost - (intItemCost * 0.90);
+					intItemCost -= Convert.ToInt32(dblDiscount);
+					lblCost.Text = String.Format("{0:###,###,##0¥}", intItemCost);
+				}
+
 				if (chkFree.Checked)
 				{
 					lblCost.Text = String.Format("{0:###,###,##0¥}", 0);
 					intItemCost = 0;
 				}
 
+				// Test required to find the item.
 				lblTest.Text = _objCharacter.AvailTest(intItemCost, lblAvail.Text);
 
 				// Essence.
@@ -1033,6 +1101,7 @@ namespace Chummer
 
 			_strSelectedGrade = _objSelectedGrade.ToString();
 			_intSelectedRating = Convert.ToInt32(nudRating.Value);
+			_blnBlackMarketDiscount = chkBlackMarketDiscount.Checked;
 
 			if (nudESSDiscount.Visible)
 				_intSelectedESSDiscount = Convert.ToInt32(nudESSDiscount.Value);
@@ -1222,7 +1291,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "skill")
 						{
 							// Check if the character has the required Skill.
-							foreach (Skill objSkill in _objCharacter.Skills)
+							foreach (Skill objSkill in _objCharacter.SkillsSection.Skills)
 							{
 								if (objSkill.Name == objXmlRequired["name"].InnerText)
 								{
@@ -1237,7 +1306,7 @@ namespace Chummer
 						else if (objXmlRequired.Name == "attribute")
 						{
 							// Check to see if an Attribute meets a requirement.
-							Attribute objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
+							CharacterAttrib objAttribute = _objCharacter.GetAttribute(objXmlRequired["name"].InnerText);
 
 							if (objXmlRequired["total"] != null)
 							{
@@ -1275,7 +1344,7 @@ namespace Chummer
 							string[] strGroups = objXmlRequired["skillgroups"].InnerText.Split('+');
 							for (int i = 0; i <= strGroups.Length - 1; i++)
 							{
-								foreach (SkillGroup objGroup in _objCharacter.SkillGroups)
+								foreach (SkillGroup objGroup in _objCharacter.SkillsSection.SkillGroups)
 								{
 									if (objGroup.Name == strGroups[i])
 									{

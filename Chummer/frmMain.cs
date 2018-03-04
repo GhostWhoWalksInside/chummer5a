@@ -1,9 +1,29 @@
-﻿using System;
+﻿/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
+ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Reflection;
+ using Chummer.Backend.Equipment;
+ using Chummer.Skills;
 
 namespace Chummer
 {
@@ -12,7 +32,7 @@ namespace Chummer
 		private frmOmae _frmOmae;
 		private frmDiceRoller _frmRoller;
 		private frmUpdate _frmUpdate;
-		private Character _objCharacter;
+        private Character _objCharacter;
 
         #region Control Events
         public frmMain()
@@ -29,31 +49,28 @@ namespace Chummer
 
 			LanguageManager.Instance.Load(GlobalOptions.Instance.Language, this);
 
-            /** Dashboard **/
-            //this.toolsMenu.DropDownItems.Add("GM Dashboard").Click += this.dashboardToolStripMenuItem_Click;
-            /** End Dashboard **/
+			/** Dashboard **/
+			//this.toolsMenu.DropDownItems.Add("GM Dashboard").Click += this.dashboardToolStripMenuItem_Click;
+			/** End Dashboard **/
 
 			// If Automatic Updates are enabled, check for updates immediately.
-			if (GlobalOptions.Instance.AutomaticUpdate)
-			{
-				frmUpdate frmAutoUpdate = new frmUpdate();
-                frmAutoUpdate.SilentMode = true;
-                frmAutoUpdate.Visible = false;
-                frmAutoUpdate.ShowDialog(this);
-			}
-			else
-			{
-#if RELEASE
-				frmUpdate frmAutoUpdate = new frmUpdate();
-				frmAutoUpdate.GetChummerVersion();
-				Version verCurrentVersion = new Version(strCurrentVersion);
-				Version verLatestVersion = new Version(frmAutoUpdate.LatestVersion);
 
-				var result = verCurrentVersion.CompareTo(verLatestVersion);
-				if (result != 0)
-					this.Text += String.Format(" - Update {0} now available!",verLatestVersion);
+#if RELEASE
+            if (Utils.GitUpdateAvailable() > 0)
+	        {
+		        if (GlobalOptions.Instance.AutomaticUpdate)
+				{
+					frmUpdate frmAutoUpdate = new frmUpdate();
+					frmAutoUpdate.SilentMode = true;
+			        frmAutoUpdate.Visible = false;
+			        frmAutoUpdate.ShowDialog(this);
+		        }
+		        else
+		        {
+			        this.Text += String.Format(" - Update {0} now available!", Utils.GitVersion());
+		        }
+	        }
 #endif
-			}
 
 			GlobalOptions.Instance.MRUChanged += PopulateMRU;
 
@@ -130,8 +147,12 @@ namespace Chummer
 			catch
 			{
 			}
-            mnuPlayerDashboard.Enabled = false;
-            mnuPlayerDashboard.ToolTipText = "to be done";
+		}
+
+		public sealed override string Text
+		{
+			get { return base.Text; }
+			set { base.Text = value; }
 		}
 
 		private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
@@ -166,7 +187,7 @@ namespace Chummer
 				frmUpdate frmUpdate = new frmUpdate();
 				_frmUpdate = frmUpdate;
 				_frmUpdate.Show();
-			}
+		}
 			else
 			{
 				_frmUpdate.Focus();
@@ -266,7 +287,7 @@ namespace Chummer
 				XmlNode objXmlWeapon = objXmlDocument.SelectSingleNode("/chummer/weapons/weapon[name = \"Unarmed Attack\"]");
 				TreeNode objDummy = new TreeNode();
 				Weapon objWeapon = new Weapon(objCharacter);
-				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null, null);
+				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null);
 				objCharacter.Weapons.Add(objWeapon);
 			}
 			catch
@@ -514,7 +535,7 @@ namespace Chummer
         private void trySkillToolStripMenuItem_Click(object sender, EventArgs e, Character objCharacter)
         {
             objCharacter = _objCharacter;
-            foreach (Skill objSkill in objCharacter.Skills)
+            foreach (Skill objSkill in objCharacter.SkillsSection.Skills)
             {
                 if (objSkill.Name == "Impersonation")
                 {
@@ -591,7 +612,7 @@ namespace Chummer
 				XmlNode objXmlWeapon = objXmlDocument.SelectSingleNode("/chummer/weapons/weapon[name = \"Unarmed Attack\"]");
 				TreeNode objDummy = new TreeNode();
 				Weapon objWeapon = new Weapon(objCharacter);
-				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null, null);
+				objWeapon.Create(objXmlWeapon, objCharacter, objDummy, null, null);
 				objCharacter.Weapons.Add(objWeapon);
 			}
 			catch
@@ -872,28 +893,8 @@ namespace Chummer
 
 		private void objCareer_DiceRollerOpened(Object sender)
 		{
-			SkillControl objControl = (SkillControl)sender;
-
-			if (GlobalOptions.Instance.SingleDiceRoller)
-			{
-				if (_frmRoller == null)
-				{
-					frmDiceRoller frmRoller = new frmDiceRoller(this, objControl.SkillObject.CharacterObject.Qualities, objControl.SkillObject.TotalRating);
-					_frmRoller = frmRoller;
-					frmRoller.Show();
-				}
-				else
-				{
-					_frmRoller.Dice = objControl.SkillObject.TotalRating;
-					_frmRoller.Qualities = objControl.SkillObject.CharacterObject.Qualities;
-					_frmRoller.Focus();
-				}
-			}
-			else
-			{
-				frmDiceRoller frmRoller = new frmDiceRoller(this, objControl.SkillObject.CharacterObject.Qualities, objControl.SkillObject.TotalRating);
-				frmRoller.Show();
-			}
+			MessageBox.Show("This feature is currently disabled. Please open a ticket if this makes the world burn, otherwise it will get re-enabled when somebody gets around to it");
+			//TODO: IMPLEMENT THIS SHIT
 		}
 
 		private void objCareer_DiceRollerOpenedInt(Character objCharacter, int intDice)
@@ -951,16 +952,6 @@ namespace Chummer
 				_frmRoller = value;
 			}
 		}
-        #endregion
-
-        private void mnuGMDashboard_Click(object sender, EventArgs e)
-        {
-            dashboardToolStripMenuItem_Click(sender,e);
-        }
-
-        private void mnuPlayerDashboard_Click(object sender, EventArgs e)
-        {
-            frmPlayerDashboard.Instance.Show();
-        }
-    }
+		#endregion
+	}
 }

@@ -1,3 +1,21 @@
+/*  This file is part of Chummer5a.
+ *
+ *  Chummer5a is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Chummer5a is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Chummer5a.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ *  You can obtain the full source code for Chummer5a at
+ *  https://github.com/chummer5a/chummer5a
+ */
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -37,22 +55,18 @@ namespace Chummer
 			nudRating.Maximum = _objPower.MaxLevels;
             nudRating.Minimum = _objPower.FreeLevels;
 
-			if (newRating > Convert.ToDecimal(_objPower.CharacterObject.MAG.Value))
-			{
-				nudRating.Value = Convert.ToDecimal(_objPower.CharacterObject.MAG.Value);
-			}
-			else
-			{
-				if (actualRating > _objPower.FreeLevels)
-				{
-					nudRating.Value = newRating;
-				}
-				else
-				{
-					nudRating.Value = _objPower.FreeLevels;
-				}
-			}
-		}
+            if (newRating < _objPower.FreeLevels)
+            {
+                newRating = _objPower.FreeLevels;
+            }
+
+            if (newRating > Convert.ToDecimal(_objPower.CharacterObject.MAG.Value))
+            {
+                newRating = Convert.ToDecimal(_objPower.CharacterObject.MAG.Value);
+            }
+
+            nudRating.Value = newRating;
+        }
         
 		private void nudRating_ValueChanged(object sender, EventArgs e)
         {
@@ -149,7 +163,7 @@ namespace Chummer
         }
 
         /// <summary>
-        /// Extra Power information (selected Attribute or Skill name).
+        /// Extra Power information (selected CharacterAttribute or Skill name).
         /// </summary>
         public string Extra
         {
@@ -343,7 +357,7 @@ namespace Chummer
         }
 
 		/// <summary>
-		/// Refresh the maximum level for the Power based on the character's MAG Attribute.
+		/// Refresh the maximum level for the Power based on the character's MAG CharacterAttribute.
 		/// </summary>
 		/// <param name="intMAG">MAG value.</param>
 		public void RefreshMaximum(int intMAG)
