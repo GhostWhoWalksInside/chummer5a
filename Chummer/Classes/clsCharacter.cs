@@ -7152,10 +7152,27 @@ namespace Chummer
 		//Can't be at improvementmanager due reasons
 	    private  Lazy<Stack<String>> _pushtext = new Lazy<Stack<String>>();
 
-	    /// <summary>
-		/// Push a value that will be used instad of dialog instead in next <selecttext />
-		/// </summary>
-	    public Stack<String> Pushtext
+        /// <summary>
+        /// The InitRoll of a Character in StaticBattleMode (no initiative reroll)
+        /// <not>Dashboard</not>
+        /// </summary>
+        public int StaticInit { get; set; } = int.MinValue;
+
+        /// <summary>
+        /// The Current Damage Modifier for the Character
+        /// <note>Dashboard</note>
+        /// </summary>
+        public int DamageInitModifier { get; set; }
+
+        /// <summary>
+        /// The Current Drain Resist for the Character
+        /// <note>Dashboard</note>
+        /// </summary>
+        public int SpellDrainResist { get; set; }
+        /// <summary>
+        /// Push a value that will be used instad of dialog instead in next <selecttext />
+        /// </summary>
+        public Stack<String> Pushtext
 	    {
 		    get
 		    {

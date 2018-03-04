@@ -6,12 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Chummer.Skills;
 
 namespace Chummer
 {
     public partial class SmallSkillControl : UserControl
     {
-        private ISkill _objSkill;
+        private Skill _objSkill;
         private readonly Form _objParent;
         
         /// <summary>
@@ -26,13 +27,13 @@ namespace Chummer
         /// <summary>
         /// The skill information
         /// </summary>
-        public ISkill Skill 
+        public Skill Skill 
         {
             get { return _objSkill; }
             set
             {
                 _objSkill = value;
-                lblSkillName.Text = Skill.DisplayName + " : " + Skill.TotalRating.ToString();
+                lblSkillName.Text = Skill.DisplayName + " : " + Skill.PoolToolTip;
             }
         }
 
@@ -85,16 +86,16 @@ namespace Chummer
             if (_objParent is frmGMDashboard)
             {
                 frmGMDashboard dash = _objParent as frmGMDashboard;
-                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
+                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.Pool + 2 : Skill.Pool;
                 // apply appropriate limit here
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
-                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((Attribute)dash.CurrentNPC.EDG).TotalValue);
+                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((CharacterAttrib)dash.CurrentNPC.EDG).TotalValue);
             }
             else
             {
                 // we have the individual player's skill's
                 frmPlayerDashboard dash = _objParent as frmPlayerDashboard;
-                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.TotalRating + 2 : Skill.TotalRating;
+                dash.DiceRoller.NumberOfDice = chkUseSpecial.Checked ? Skill.Pool + 2 : Skill.Pool;
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
                 dash.DiceRoller.NumberOfEdge = Convert.ToInt32(dash.CurrentNPC.EDG);
             }

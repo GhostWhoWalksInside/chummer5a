@@ -26,7 +26,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Chummer.Skills;
+﻿using System.Xml;
+﻿using System.Xml.XPath;
+﻿using Chummer.Controls;
+﻿using Chummer.Skills;
 
 namespace Chummer
 {
@@ -259,9 +262,9 @@ namespace Chummer
 
             this.tabControl.TabPages[(int) DashBoardPages.Skills].Controls.Clear();
             FlowLayoutPanel panel = new FlowLayoutPanel();
-            foreach (ISkill skill in this.CurrentNPC.Skills.Where(s => s.Rating > 0))
+            foreach (Skill skill in this.CurrentNPC.SkillsSection.Skills.Where(s => s.Rating > 0))
             {
-                if (skill.KnowledgeSkill)
+                if (skill.IsKnowledgeSkill)
                     continue; // improvement for knowledge skills goes here
                 // insert new skill control
                 SmallSkillControl ucSkill = new SmallSkillControl(this);

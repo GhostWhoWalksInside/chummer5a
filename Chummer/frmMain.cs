@@ -544,6 +544,16 @@ namespace Chummer
             }
         }
 
+        private void mnuGMDashboard_Click(object sender, EventArgs e)
+        {
+            dashboardToolStripMenuItem_Click(sender, e);
+        }
+
+        private void mnuPlayerDashboard_Click(object sender, EventArgs e)
+        {
+            frmPlayerDashboard.Instance.Show();
+        }
+
         #endregion
 
         #region Methods

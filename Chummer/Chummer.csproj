@@ -195,11 +195,11 @@
     <Compile Include="Controls\DiceRollerControl.Designer.cs">
       <DependentUpon>DiceRollerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Form1.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Controls\SmallSkillControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Controls\SmallSkillControl.Designer.cs">
+      <DependentUpon>SmallSkillControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\SmallSpellControl.cs">
       <SubType>UserControl</SubType>
@@ -293,6 +293,7 @@
       <DependentUpon>frmSelectSkillSpec.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Shared\CharacterShared.cs" />
+    <Compile Include="UI\Shared\DesignerUtil.cs" />
     <Compile Include="UI\Skills\KnowledgeSkillControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

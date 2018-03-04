@@ -63,7 +63,7 @@ namespace Chummer.Controls
                 dash.DiceRoller.NumberOfDice = this.Spell.DicePool;
                 dash.DiceRoller.Limit = nudDram.Value > 0 ? (int) nudDram.Value : (int) nudForce.Value;
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
-                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((Attribute) dash.CurrentNPC.EDG).TotalValue);
+                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((CharacterAttrib) dash.CurrentNPC.EDG).TotalValue);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Chummer.Controls
                 dash.DiceRoller.NumberOfDice = DrainResist;
                 dash.DiceRoller.Limit = nudDram.Value > 0 ? (int) nudDram.Value : (int) nudForce.Value;
                 dash.DiceRoller.EdgeUse = DiceRollerControl.EdgeUses.None;
-                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((Attribute) dash.CurrentNPC.EDG).TotalValue);
+                dash.DiceRoller.NumberOfEdge = Convert.ToInt32(((CharacterAttrib) dash.CurrentNPC.EDG).TotalValue);
                 dash.DiceRoller.Threshold = Spell.GetDrainValue((int)nudForce.Value);
             }
         }
